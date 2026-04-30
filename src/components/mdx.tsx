@@ -27,6 +27,7 @@ import {
   Text,
   type TextProps,
 } from "@once-ui-system/core";
+import { withBasePath } from "@/utils/paths";
 
 type CustomLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
@@ -72,10 +73,14 @@ function createImage({ alt, src, ...props }: MediaProps & { src: string }) {
       border="neutral-alpha-medium"
       sizes="(max-width: 960px) 100vw, 960px"
       alt={alt}
-      src={src}
+      src={withBasePath(src)}
       {...props}
     />
   );
+}
+
+function CustomMedia({ src = "", ...props }: MediaProps & { src?: string }) {
+  return <Media src={withBasePath(src)} {...props} />;
 }
 
 function slugify(str: string): string {
@@ -201,7 +206,7 @@ const components = {
   Row,
   Column,
   Icon,
-  Media,
+  Media: CustomMedia as any,
   SmartLink,
 };
 

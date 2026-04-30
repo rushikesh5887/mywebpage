@@ -1,6 +1,7 @@
 "use client";
 
 import { ProjectBadgeStrip } from "@/components/ProjectBadgeStrip";
+import { withBasePath } from "@/utils/paths";
 import {
   AvatarGroup,
   Carousel,
@@ -43,15 +44,20 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const hasSummary = description?.trim().length > 0;
   const hasBadges = Boolean(domain || focus || scale || techStack?.length);
+  const carouselItems = images.map((image) => ({
+    slide: withBasePath(image),
+    alt: title,
+  }));
+  const avatarItems = avatars?.map((avatar) => ({
+    ...avatar,
+    src: withBasePath(avatar.src),
+  }));
 
   return (
     <Column fillWidth gap="m">
       <Carousel
         sizes="(max-width: 960px) 100vw, 960px"
-        items={images.map((image) => ({
-          slide: image,
-          alt: title,
-        }))}
+        items={carouselItems}
       />
       <Flex
         s={{ direction: "column" }}
@@ -81,7 +87,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         )}
         {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
           <Column flex={7} gap="16">
-            {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
+            {avatarItems?.length > 0 && <AvatarGroup avatars={avatarItems} size="m" reverse />}
             {hasSummary && (
               <Column gap="8">
                 <Text variant="label-strong-s" onBackground="brand-weak">

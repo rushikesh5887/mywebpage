@@ -2,6 +2,7 @@ import { CustomMDX, ProjectBadgeStrip, ScrollToHash } from "@/components";
 import { Projects } from "@/components/work/Projects";
 import { about, baseURL, person, work } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
+import { withBasePath } from "@/utils/paths";
 import { getPosts } from "@/utils/utils";
 import {
   Avatar,
@@ -77,7 +78,7 @@ export default async function Project({
           member.name === person.name || member.name.includes(person.firstName) ? person.avatar : "";
 
         return {
-          src: member.avatar || fallbackAvatar,
+          src: withBasePath(member.avatar || fallbackAvatar),
         };
       })
       .filter((member) => member.src) || [];
@@ -149,7 +150,13 @@ export default async function Project({
         </Row>
       </Row>
       {post.metadata.images.length > 0 && (
-        <Media priority aspectRatio="16 / 9" radius="m" alt="image" src={post.metadata.images[0]} />
+        <Media
+          priority
+          aspectRatio="16 / 9"
+          radius="m"
+          alt="image"
+          src={withBasePath(post.metadata.images[0])}
+        />
       )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
         <CustomMDX source={post.content} />

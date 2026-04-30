@@ -4,6 +4,7 @@ import { FooterContact } from "@/components";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
 import { about, baseURL, person, social } from "@/resources";
+import { withBasePath } from "@/utils/paths";
 import {
   Avatar,
   Button,
@@ -120,7 +121,7 @@ export default function About() {
             flex={3}
             horizontal="center"
           >
-            <Avatar src={person.avatar} size="xl" />
+            <Avatar src={withBasePath(person.avatar)} size="xl" />
             <Row gap="8" vertical="center">
               <Icon onBackground="accent-weak" name="globe" />
               {person.location}
@@ -332,7 +333,7 @@ export default function About() {
                               radius="m"
                               sizes={image.width.toString()}
                               alt={image.alt}
-                              src={image.src}
+                              src={withBasePath(image.src)}
                             />
                           </Row>
                         ))}
@@ -394,7 +395,7 @@ export default function About() {
                               radius="m"
                               sizes={image.width.toString()}
                               alt={image.alt}
-                              src={image.src}
+                              src={withBasePath(image.src)}
                             />
                           </Row>
                         ))}

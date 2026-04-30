@@ -1,6 +1,7 @@
 "use client";
 
 import { gallery } from "@/resources";
+import { withBasePath } from "@/utils/paths";
 import { MasonryGrid, Media } from "@once-ui-system/core";
 
 export default function GalleryView() {
@@ -14,7 +15,7 @@ export default function GalleryView() {
           key={index}
           radius="m"
           aspectRatio={image.orientation === "horizontal" ? "16 / 9" : "3 / 4"}
-          src={image.src}
+          src={withBasePath(image.src)}
           alt={image.alt}
         />
       ))}

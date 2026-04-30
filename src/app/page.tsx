@@ -6,6 +6,7 @@ import { Column, IconButton, Meta, RevealFx, Schema } from "@once-ui-system/core
 import { FooterContact } from "@/components";
 import { Projects } from "@/components/work/Projects";
 import { about, baseURL, home, person, social } from "@/resources";
+import { withBasePath } from "@/utils/paths";
 
 import styles from "./page.module.css";
 
@@ -20,7 +21,7 @@ export async function generateMetadata() {
 }
 
 const socialLinks = social.filter((item) => item.essential && item.name !== "Email");
-const resumeLink = "/documents/cv.pdf";
+const resumeLink = withBasePath("/documents/cv.pdf");
 const heroHeadline = "Applied data scientist for mobility, urban systems, and decision-ready analytics.";
 
 const impactMetrics = [
@@ -141,7 +142,7 @@ export default function Home() {
               <div className={styles.profileCard}>
                 <div className={styles.imageWrap}>
                   <Image
-                    src={person.avatar}
+                    src={withBasePath(person.avatar)}
                     alt={person.name}
                     fill
                     priority
