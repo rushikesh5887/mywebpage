@@ -1,0 +1,67 @@
+---
+title: "Scalable Framework for Benchmarking Road Traffic Carbon Emissions"
+publishedAt: "2025-11-11" 
+link: "https://link.springer.com/article/10.1007/s44327-025-00154-3"
+summary: "Built a scalable emissions-modeling framework that combined traffic, geospatial, and validation data to benchmark road transport carbon emissions across 45 global cities and support scenario-based mobility analysis."
+domain: "Urban Analytics"
+focus: "Emission Modeling and Mobility Analytics"
+scale: "45 Global Cities, 10M+ datapoints"
+techStack:
+  - "Python: GeoPandas, Pandas, Numpy, OSMnx, NetworkX"
+  - "R: dplyr, ggplot2"
+  - "QGIS, OpenStreetMap"
+
+images:
+  - "/images/projects/project-01/city_locations.png"
+  - "/images/projects/project-01/Methodology.png"
+  - "/images/projects/project-01/Ranking_Carbon_Emission.png"
+  - "/images/projects/project-01/Carbon_Emission.png"
+  - "/images/projects/project-01/Bland-Altman_plots.png"
+team:
+  - name: "Rushikesh Amrtsamanvar" 
+    role: "Postdoctoral Researcher"
+    avatar: "/images/RBD_1.jpg"
+    linkedIn: "https://www.linkedin.com/in/dr-rushikesh-amrutsamanvar-30849349/"
+  - name: "Travis Waller"
+    role: "Chair of Transport Modeling and Simulation "
+    linkedIn: "https://www.linkedin.com/in/travis-waller/"
+---
+
+## Project Summary
+
+I built a scalable framework for estimating and benchmarking road traffic carbon emissions across 45 global cities. The project combined traffic assignment outputs, geospatial data, emissions factors, and validation sources into a repeatable workflow for cross-city comparison and scenario analysis.
+
+## Business and Research Impact:
+
+Urban transport emissions matter for policy, but comparing cities consistently is difficult when data quality, traffic conditions, and reporting standards vary. This framework made benchmarking more reliable by standardizing how emissions were estimated, validated, and compared, giving researchers and policymakers a clearer basis for scenario testing and sustainable mobility planning.
+
+## Skills and Technologies:
+- **Mobility Analytics and Simulation:** Traffic flow modeling, network modeling, and scenario analysis across `45` global cities
+- **Data Engineering:** Multi-source ingestion, data harmonization, metric generation, and repeatable analytics workflows
+- **Geospatial Analytics:** `GeoPandas`, `QGIS`, coordinate transformations, raster-vector integration, and `OpenStreetMap` network processing
+- **Validation and Benchmarking:** External benchmark comparison, sensitivity analysis, and cross-city performance evaluation
+- **Python:** `pandas`, `numpy`, `geopandas`, `osmnx`, `networkx`, and `matplotlib` for pipeline development, analytics, and emissions modeling
+- **R:** `ggplot2`, `ggpubr`, `dplyr`, and `sf` for validation analysis and reporting
+- **Data Integration:** `OSMnx`, `QGIS`, `OpenStreetMap`, Rapidex / `SUMO`, `TomTom`, IEA reports, `WorldPop`, and World Bank `APIs`
+
+## What I built:
+
+- **Multi-source emissions analytics pipeline:** Built a scalable workflow that integrated traffic assignment outputs, network data, travel times, and emissions factors to generate link-level and city-level carbon estimates.
+- **Scenario analysis engine:** Automated calculation of carbon emissions, congestion index, vehicle kilometers traveled, speed, and travel time across multiple demand scenarios for repeatable comparative analysis.
+- **Geospatial data processing framework:** Developed harmonization workflows combining `GeoJSON` boundaries, `WorldPop` rasters, APIs, and `OSM`-derived network data for city-scale spatial modeling.
+- **Validation and benchmarking layer:** Designed benchmark comparisons against IEA fuel consumption and emissions references to improve consistency and trust in cross-city results.
+- **Decision-support reporting outputs:** Produced visual analytics and reporting assets that synthesized mobility, emissions, and economic indicators for benchmarking and policy-facing interpretation.
+
+## Challenges and Learnings
+
+One key challenge was standardizing emissions estimation across diverse global cities while working with heterogeneous transport, geospatial, and validation datasets. The solution required building an automated workflow that could harmonize inconsistent source formats, perform raster-vector integration, enrich data through APIs, and support sensitivity analysis for multiple travel demand scenarios. This work reinforced the importance of scalable validation pipelines and city-level benchmarking for transport policy analysis.
+
+
+## Outcome
+
+The framework enabled rapid analysis of emission resilience across 45 cities, supported scenario-based policy testing, and highlighted how urban road networks respond differently under demand growth. It made cross-city benchmarking more consistent, improved validation against external datasets, and generated actionable insights for sustainable urban mobility planning.
+
+## For more information:
+
+- [GitHub Repository](https://github.com/rushikesh5887/Urban-Traffic-Carbon-Emissions-Modeling-Global-Cities-/blob/main/README.md)
+- [Published article in Discover Cities, Springer Nature ](https://link.springer.com/article/10.1007/s44327-025-00154-3)

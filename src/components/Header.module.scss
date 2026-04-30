@@ -8,6 +8,18 @@
     mask-size: 100% 100%;
 }
 
+.moreDropdown {
+    margin-left: var(--static-space-4);
+}
+
+.moreTrigger {
+    min-width: 6.5rem;
+}
+
+.moreMenu {
+    min-width: 10rem;
+}
+
 @media (max-width: breakpoints.$s) {
     .position {
         top: auto;
@@ -17,5 +29,9 @@
     .mask {
         transform: rotate(180deg);
         bottom: 0;
+    }
+
+    .moreDropdown {
+        margin-left: 0;
     }
 }

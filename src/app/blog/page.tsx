@@ -1,19 +1,28 @@
-import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
 import { Mailchimp } from "@/components";
 import { Posts } from "@/components/blog/Posts";
-import { baseURL, blog, person, newsletter } from "@/resources";
+import { baseURL, blog, person, routes } from "@/resources";
+import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata() {
+  if (!routes["/blog"]) {
+    return {};
+  }
+
   return Meta.generate({
     title: blog.title,
     description: blog.description,
     baseURL: baseURL,
-    image: `/api/og/generate?title=${encodeURIComponent(blog.title)}`,
+    image: "/images/og/home.jpg",
     path: blog.path,
   });
 }
 
 export default function Blog() {
+  if (!routes["/blog"]) {
+    notFound();
+  }
+
   return (
     <Column maxWidth="m" paddingTop="24">
       <Schema
@@ -22,7 +31,7 @@ export default function Blog() {
         title={blog.title}
         description={blog.description}
         path={blog.path}
-        image={`/api/og/generate?title=${encodeURIComponent(blog.title)}`}
+        image="/images/og/home.jpg"
         author={{
           name: person.name,
           url: `${baseURL}/blog`,

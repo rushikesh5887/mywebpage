@@ -1,0 +1,72 @@
+---
+title: "Vehicle Path Generation and Tracking in Mixed Traffic"
+publishedAt: "2020-08-04"
+link: "https://doi.org/10.1016/j.ifacol.2020.06.088"
+summary: "Built and guided a mixed-traffic maneuver-planning prototype that combined path-choice extraction from trajectory data, rule-based leader identification, feasibility-constrained trajectory generation, and simulation validation to study safe overtaking and path tracking in disordered traffic."
+domain: "Mobility Analytics"
+focus: "Trajectory Generation and Vehicle Tracking"
+scale: "Collaborative Thesis Project"
+techStack:
+  - "MATLAB, VISSIM"
+  - "IPG CarMaker, Vehicle Dynamics"
+images:
+  - "/images/projects/trajectory_prediction/workflow.png"
+  - "/images/projects/trajectory_prediction/decision_logic.png"
+  - "/images/projects/trajectory_prediction/output.png"
+  - "/images/projects/trajectory_prediction/ipg.png"
+team:
+  - name: "Parth Deshpande"
+    role: "Master's Student, Engineering Design"
+  - name: "Rushikesh Amrutsamanvar"
+    role: "Collaborator and Technical Guide"
+    avatar: "/images/RBD_1.jpg"
+    linkedIn: "https://www.linkedin.com/in/dr-rushikesh-amrutsamanvar-30849349/"
+---
+
+## Project Summary
+
+This was a collaborative thesis project with a master's student from the Engineering Design department focused on generating and tracking safe vehicle paths in disordered mixed traffic. The work addressed a difficult setting where lane discipline is weak and the relevant leader vehicle may not always be directly ahead.
+
+The project combined path-choice extraction, mixed-traffic leader detection, decision logic for follow or overtake behavior, maneuver feasibility checks, trajectory generation, and path tracking into a single workflow. It was developed in `MATLAB` using both extracted traffic interactions and synthetic traffic scenes, with controller validation carried out in `IPG CarMaker`.
+
+## Business and Research Impact
+
+Path planning and tracking methods are often designed for lane-disciplined environments, which makes them difficult to transfer directly to mixed traffic. This project explored how safe trajectory generation can be adapted to disorderly road conditions where vehicle interactions are less structured and the concept of a single leader vehicle is less reliable.
+
+The implementation work went beyond a basic controller demo. It involved encoding vehicle-class geometry, identifying nearby vehicles inside detection and safe regions, extracting path-choice features from trajectory data, and checking whether overtaking maneuvers were feasible under kinematic, steering, and comfort-related constraints.
+
+This case study shows collaborative problem-solving across modeling, simulation, and validation, along with technical mentoring and the ability to translate traffic-behavior assumptions into working planning logic.
+
+## Skills and Technologies
+
+- **Motion Planning:** Feasible maneuver generation, overtaking logic, and path planning for mixed-traffic environments
+- **Behavior Modeling:** Rule-based leader selection, path-choice logic, and interaction modeling for non-lane-disciplined traffic
+- **Simulation and Control:** `MATLAB`, `IPG CarMaker`, steering control, and controller validation workflows
+- **Algorithm Prototyping:** Translating traffic behavior assumptions into testable planning, tracking, and feasibility logic
+- **Trajectory Analytics:** Path-choice feature extraction from frame-level traffic interactions
+- **Vehicle Modeling:** Vehicle-class geometry, interaction regions, safe-region checks, and kinematic constraints
+- **Technical Leadership:** Cross-disciplinary collaboration, model review, and technical mentorship
+
+## What I Built
+
+- **Path-choice extraction workflow:** Built and refined `MATLAB` code to extract overtaking and path-choice features from frame-level traffic trajectories, including follower-leader relationships, lateral positioning, longitudinal spacing, oblique distances, and kerb-side context.
+- **Mixed-traffic leader-selection and decision logic:** Helped define logic for identifying the most relevant surrounding vehicle inside detection and safe regions, then routing behavior toward free driving, following, or left/right overtaking instead of assuming a single leader directly ahead.
+- **Vehicle and road-scene representation:** Structured the prototype around vehicle-class-specific dimensions, road boundaries, detection zones, and safe operating regions to support realistic mixed-traffic reasoning.
+- **Feasibility-constrained trajectory generation:** Supported development of trajectory-generation logic that checked maneuver feasibility against distance, steering, curvature, and comfort-related constraints before executing an overtaking path.
+- **Simulation and animation workflow:** Helped build `MATLAB` simulation outputs for evolving traffic scenes, subject-vehicle motion, leader trajectories, and maneuver visualization.
+- **Tracking and validation workflow:** Supported downstream evaluation of path tracking and controller behavior, including closed-loop steering/control validation carried out in `IPG CarMaker`.
+- **Technical mentorship and review:** Worked closely with a master's student on modeling decisions, implementation strategy, and validation design over the course of the project.
+
+## Challenges and Learnings
+
+The main challenge was adapting path-generation and tracking logic to a road environment where lane order is weak and vehicle interactions are more ambiguous than in standard highway models. That required a more context-aware notion of surrounding vehicles, explicit safe-region reasoning, and maneuver feasibility checks that worked with heterogeneous vehicle sizes and positions rather than idealized lane centers.
+
+This project strengthened my experience in collaborative modeling, validation-oriented simulation, and mentoring technical work across disciplines.
+
+## Outcome
+
+The project delivered a workable framework for extracting path-choice context, generating feasible overtaking trajectories, and evaluating tracking behavior in mixed traffic. As a portfolio case study, it highlights collaborative research, simulation depth, and practical technical guidance in a control-oriented mobility problem where conventional lane-based assumptions do not hold.
+
+## For more information
+
+- [Published paper in IFAC-PapersOnLine](https://doi.org/10.1016/j.ifacol.2020.06.088)

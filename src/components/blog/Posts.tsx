@@ -1,3 +1,4 @@
+import { routes } from "@/resources";
 import { getPosts } from "@/utils/utils";
 import { Grid } from "@once-ui-system/core";
 import Post from "./Post";
@@ -17,6 +18,10 @@ export function Posts({
   exclude = [],
   direction,
 }: PostsProps) {
+  if (!routes["/blog"]) {
+    return null;
+  }
+
   let allBlogs = getPosts(["src", "app", "blog", "posts"]);
 
   // Exclude by slug (exact match)

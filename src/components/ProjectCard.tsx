@@ -1,5 +1,6 @@
 "use client";
 
+import { ProjectBadgeStrip } from "@/components/ProjectBadgeStrip";
 import {
   AvatarGroup,
   Carousel,
@@ -10,6 +11,8 @@ import {
   Text,
 } from "@once-ui-system/core";
 
+import styles from "./ProjectCard.module.scss";
+
 interface ProjectCardProps {
   href: string;
   priority?: boolean;
@@ -19,6 +22,10 @@ interface ProjectCardProps {
   description: string;
   avatars: { src: string }[];
   link: string;
+  domain?: string;
+  focus?: string;
+  scale?: string;
+  techStack?: string[];
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -29,7 +36,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   avatars,
   link,
+  domain,
+  focus,
+  scale,
+  techStack,
 }) => {
+  const hasSummary = description?.trim().length > 0;
+  const hasBadges = Boolean(domain || focus || scale || techStack?.length);
+
   return (
     <Column fillWidth gap="m">
       <Carousel
@@ -48,37 +62,57 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         gap="l"
       >
         {title && (
-          <Flex flex={5}>
-            <Heading as="h2" wrap="balance" variant="heading-strong-xl">
-              {title}
-            </Heading>
-          </Flex>
+          <Column flex={5} gap="8" className={styles.titleBlock}>
+            <SmartLink
+              href={href}
+              className={styles.titleLink}
+              style={{ margin: "0", width: "fit-content", textDecoration: "none" }}
+            >
+              <Heading
+                as="h2"
+                wrap="balance"
+                variant="heading-strong-xl"
+                className={styles.titleHeading}
+              >
+                {title}
+              </Heading>
+            </SmartLink>
+          </Column>
         )}
         {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
           <Column flex={7} gap="16">
             {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
-            {description?.trim() && (
-              <Text wrap="balance" variant="body-default-s" onBackground="neutral-weak">
-                {description}
-              </Text>
+            {hasSummary && (
+              <Column gap="8">
+                <Text variant="label-strong-s" onBackground="brand-weak">
+                  Problem and Outcome
+                </Text>
+                <Text wrap="balance" variant="body-default-s" onBackground="neutral-weak">
+                  {description}
+                </Text>
+              </Column>
+            )}
+            {hasBadges && (
+              <Column gap="8">
+                <Text variant="label-strong-s" onBackground="brand-weak">
+                  Method, Scale, and Tools
+                </Text>
+                <ProjectBadgeStrip
+                  domain={domain}
+                  focus={focus}
+                  scale={scale}
+                  techStack={techStack}
+                />
+              </Column>
             )}
             <Flex gap="24" wrap>
-              {content?.trim() && (
-                <SmartLink
-                  suffixIcon="arrowRight"
-                  style={{ margin: "0", width: "fit-content" }}
-                  href={href}
-                >
-                  <Text variant="body-default-s">Read case study</Text>
-                </SmartLink>
-              )}
               {link && (
                 <SmartLink
                   suffixIcon="arrowUpRightFromSquare"
                   style={{ margin: "0", width: "fit-content" }}
                   href={link}
                 >
-                  <Text variant="body-default-s">View project</Text>
+                  <Text variant="body-default-s">View publication</Text>
                 </SmartLink>
               )}
             </Flex>

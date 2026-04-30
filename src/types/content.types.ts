@@ -1,5 +1,5 @@
-import { IconName } from "@/resources/icons";
-import { zones } from "tzdata";
+import type { IconName } from "@/resources/icons";
+import type { zones } from "tzdata";
 
 /**
  * IANA time zone string (e.g., 'Asia/Calcutta', 'Europe/Vienna').
@@ -27,6 +27,8 @@ export type Person = {
   location: IANATimeZone;
   /** Languages spoken */
   languages?: string[];
+  /** Hard skills to highlight in the profile column */
+  hardSkills?: string[];
 };
 
 /**
@@ -136,6 +138,31 @@ export interface About extends BasePageConfig {
     /** Description of the introduction section */
     description: React.ReactNode;
   };
+  /** Core strengths section shown in the profile sidebar */
+  strengths: {
+    /** Whether to display the strengths section */
+    display: boolean;
+    /** Title for the strengths section */
+    title: string;
+    /** Bullet items to highlight */
+    items: string[];
+  };
+  /** Toolkit section */
+  toolkit: {
+    /** Whether to display the toolkit section */
+    display: boolean;
+    /** Title for the toolkit section */
+    title: string;
+    /** Bullet items to highlight */
+    items: string[];
+  };
+  /** Optional professional references note */
+  references?: {
+    /** Whether to display the references note */
+    display: boolean;
+    /** Short note shown near contact actions */
+    note: React.ReactNode;
+  };
   /** Work experience section */
   work: {
     /** Whether to display work experience */
@@ -163,6 +190,20 @@ export interface About extends BasePageConfig {
         /** Image height ratio */
         height: number;
       }>;
+    }>;
+  };
+  /** Awards and recognition section */
+  awards?: {
+    /** Whether to display awards section */
+    display: boolean;
+    /** Title for the awards section */
+    title: string;
+    /** List of awards */
+    items: Array<{
+      /** Award title */
+      title: string;
+      /** Supporting details */
+      details: React.ReactNode[];
     }>;
   };
   /** Studies/education section */
@@ -209,6 +250,22 @@ export interface About extends BasePageConfig {
       }>;
     }>;
   };
+  /** Coordination and partnership experience section */
+  coordination?: {
+    /** Whether to display the section */
+    display: boolean;
+    /** Title for the section */
+    title: string;
+    /** List of coordination and partnership entries */
+    items: Array<{
+      /** Entry title */
+      title: string;
+      /** Optional timeframe */
+      timeframe?: string;
+      /** Description bullets */
+      points: React.ReactNode[];
+    }>;
+  };
 }
 
 /**
@@ -218,10 +275,47 @@ export interface About extends BasePageConfig {
 export interface Blog extends BasePageConfig {}
 
 /**
+ * Publications page configuration.
+ * @description Configuration for the Publications page, including grouped publication entries.
+ */
+export interface Publications extends BasePageConfig {
+  /** Introductory text shown above the publication list */
+  intro: React.ReactNode;
+  /** Publication sections */
+  sections: Array<{
+    /** Section title */
+    title: string;
+    /** Publication entries in the section */
+    items: Array<{
+      /** Publication authors */
+      authors: string;
+      /** Publication title */
+      title: string;
+      /** Journal, conference, or publisher */
+      venue: string;
+      /** Publication details such as volume, pages, and year */
+      details: string;
+      /** Optional collaborating institutions for this publication */
+      institutions?: string[];
+      /** Optional external article link */
+      href?: string;
+      /** Optional PDF link */
+      pdf?: string;
+    }>;
+  }>;
+}
+
+/**
  * Work/projects page configuration.
  * @description Configuration for the Work/Projects page, including metadata and navigation label.
  */
 export interface Work extends BasePageConfig {}
+
+/**
+ * Travel page configuration.
+ * @description Configuration for the Travel page, including metadata and navigation label.
+ */
+export interface Travel extends BasePageConfig {}
 
 /**
  * Gallery page configuration.

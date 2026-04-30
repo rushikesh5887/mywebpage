@@ -1,0 +1,73 @@
+---
+title: "Modeling Staggered Following Behavior of Motorcyclists Using Copula Methods"
+publishedAt: "2024-04-01"
+link: "https://www.springerprofessional.de/en/two-dimensional-following-behavior-analysis-of-powered-two-wheel/27132874"
+summary: "Built an end-to-end behavioral analytics workflow for staggered following in mixed traffic, combining trajectory preparation, engineered spacing metrics, comparative statistics, and copula models to explain how motorcyclists trade off lateral clearance and longitudinal headway."
+domain: "Mobility Analytics"
+focus: "Behavior Analysis and Dependence Modeling"
+scale: "Naturalistic trajectory data, 5M+ datapoints"
+techStack:
+  - "R: copula, ggplot2, psych, ggridges, fitdistrplus, dgof"
+  - "MATLAB"
+  - "Trajectory Analytics and Statistical Modeling"
+images:
+  - "/images/projects/Copula_Modeling/Chapt_4_methodology.png"
+  - "/images/projects/Copula_Modeling/speed.png"
+  - "/images/projects/Copula_Modeling/Th_vs_CS_ridge-1.png"
+  - "/images/projects/Copula_Modeling/Passing_wrt_leader-1.png"
+  - "/images/projects/Copula_Modeling/Chi_plot_Time_Headway_vs_OGap-1.png"
+  - "/images/projects/Copula_Modeling/regimes_new.svg"
+team:
+  - name: "Rushikesh Amrutsamanvar"
+    role: "Doctoral Researcher"
+    avatar: "/images/RBD_1.jpg"
+    linkedIn: "https://www.linkedin.com/in/dr-rushikesh-amrutsamanvar-30849349/"
+---
+
+## Project Summary
+
+This project examined how motorcyclists follow lead vehicles in a staggered position rather than directly inline. In mixed traffic, riders continuously trade off lateral clearance and longitudinal headway, and standard following models do not capture that joint behavior well.
+
+I built an end-to-end workflow around naturalistic trajectory data to test whether staggered following changes with leader type and with the side from which the rider follows. The work covered data preparation, regime classification, variable engineering, comparative statistics, dependence diagnostics, and copula-based modeling instead of treating the two dimensions independently.
+
+## Business and Research Impact
+
+Motorcyclists in mixed traffic do not follow like lane-disciplined car traffic. Their path choices depend on both forward spacing and side positioning, which makes the behavior hard to analyze with conventional one-dimensional metrics.
+
+This project built a repeatable workflow for isolating staggered-following episodes, generating reliable spacing measures, and comparing behavior across rider contexts and leader types. It improves how motorcycle behavior can be represented in safety analysis, simulation, and mixed-traffic research, while also showing statistical modeling depth and custom workflow design.
+
+## Skills and Technologies
+
+- **Behavioral Analytics:** Mixed-traffic trajectory analysis, staggered-following characterization, and context-specific rider behavior modeling
+- **Statistical Modeling:** `Copula methods`, dependence modeling, marginal distribution fitting, correlation diagnostics, and comparative hypothesis testing
+- **Data Engineering:** Regime classification, subgroup segmentation, derived metric generation, and repeatable analytical dataset preparation
+- **Feature Engineering:** Centerline separation, longitudinal gap, oblique gap, distance headway, time headway, and speed-based grouping
+- **R Programming:** `copula`, `ggplot2`, `fitdistrplus`, `dgof`, `psych`, `ggridges`, and supporting analysis packages
+- **MATLAB:** Trajectory preparation, preprocessing, and variable derivation
+- **Reporting and Visualization:** Statistical tables, distribution diagnostics, ridge plots, violin plots, scatter plots, and publication-ready outputs
+
+## What I Built
+
+- **Regime-classification and preparation pipeline:** Built an analysis workflow that cleaned raw interaction data, merged vehicle classes, and separated longitudinal-following, staggered-following, and passing regimes for downstream modeling.
+- **PTW-specific behavioral dataset:** Isolated powered two-wheeler staggered-following cases, segmented them by following side, and prepared analysis-ready subsets for repeated comparison across leader types.
+- **Feature-engineering workflow:** Derived and organized key spacing and motion descriptors including centerline separation, longitudinal gap, oblique gap, distance headway, time headway, and speed bands.
+- **Comparative statistical analysis layer:** Built group-wise statistical summaries, pairwise comparisons, and side-based tests to examine how staggered-following behavior changes across leader categories and rider position.
+- **Distribution-fitting and dependence diagnostics:** Evaluated marginal distributions, generated correlation and chi plots, and prepared the data needed for bivariate dependence modeling.
+- **Copula-modeling framework:** Applied copula-based methods to quantify how lateral and longitudinal descriptors move together instead of treating them as independent effects.
+- **Reporting and figure-generation workflow:** Produced tables, ridge plots, box plots, violin plots, scatter plots, and publication-ready outputs for interpretation and chapter writing.
+
+## Challenges and Learnings
+
+The key challenge was modeling a behavior that is inherently two-dimensional without reducing it to independent summary metrics. That required more than choosing a copula family: it also meant building reliable data splits for staggered-following cases, engineering behaviorally meaningful variables, checking how distributions changed across groups, and validating whether the dependence structure stayed interpretable across contexts.
+
+This project reinforced the importance of choosing methods that match the actual behavior under study rather than forcing a familiar analytical framework onto the data.
+
+## Outcome
+
+The project produced a reusable behavioral analytics workflow that quantified how motorcyclists manage staggered following in real mixed traffic. It showed that rider-following behavior changes with context, that following side and leader type matter, and that the relationship between lateral and longitudinal movement should be modeled jointly rather than treated as separate effects.
+
+As a case study, it demonstrates statistical modeling depth, behavioral-analysis skill, and the ability to translate raw trajectory data into interpretable findings through a full analytical pipeline rather than a single isolated model.
+
+## For more information
+
+- [Book chapter in Traffic and Granular Flow 2022, Springer](https://www.springerprofessional.de/en/two-dimensional-following-behavior-analysis-of-powered-two-wheel/27132874)

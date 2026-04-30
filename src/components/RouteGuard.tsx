@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { routes, protectedRoutes } from "@/resources";
-import { Flex, Spinner, Button, Heading, Column, PasswordInput } from "@once-ui-system/core";
 import NotFound from "@/app/not-found";
+import { protectedRoutes, routes } from "@/resources";
+import { Button, Column, Flex, Heading, PasswordInput, Spinner } from "@once-ui-system/core";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface RouteGuardProps {
   children: React.ReactNode;
@@ -26,27 +26,30 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       setIsPasswordRequired(false);
       setIsAuthenticated(false);
 
-      const checkRouteEnabled = () => {
-        if (!pathname) return false;
+      const getMatchingRoute = (config: Record<string, boolean>) => {
+        if (!pathname) return undefined;
 
-        if (pathname in routes) {
-          return routes[pathname as keyof typeof routes];
+        if (pathname in config) {
+          return pathname;
         }
 
-        const dynamicRoutes = ["/blog", "/work"] as const;
-        for (const route of dynamicRoutes) {
-          if (pathname?.startsWith(route) && routes[route]) {
-            return true;
-          }
-        }
+        const matchingRoute = Object.keys(config)
+          .filter((route) => route !== "/" && pathname.startsWith(`${route}/`))
+          .sort((a, b) => b.length - a.length)[0];
 
-        return false;
+        return matchingRoute;
       };
 
-      const routeEnabled = checkRouteEnabled();
+      const matchedRoute = getMatchingRoute(routes);
+      const routeEnabled = matchedRoute
+        ? routes[matchedRoute as keyof typeof routes]
+        : pathname === "/";
+
       setIsRouteEnabled(routeEnabled);
 
-      if (protectedRoutes[pathname as keyof typeof protectedRoutes]) {
+      const matchedProtectedRoute = getMatchingRoute(protectedRoutes);
+
+      if (matchedProtectedRoute && protectedRoutes[matchedProtectedRoute as keyof typeof protectedRoutes]) {
         setIsPasswordRequired(true);
 
         const response = await fetch("/api/check-auth");

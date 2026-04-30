@@ -1,25 +1,27 @@
-import { notFound } from "next/navigation";
+import { CustomMDX, ProjectBadgeStrip, ScrollToHash } from "@/components";
+import { Projects } from "@/components/work/Projects";
+import { about, baseURL, person, work } from "@/resources";
+import { formatDate } from "@/utils/formatDate";
 import { getPosts } from "@/utils/utils";
 import {
-  Meta,
-  Schema,
+  Avatar,
   AvatarGroup,
   Button,
   Column,
   Flex,
   Heading,
-  Media,
-  Text,
-  SmartLink,
-  Row,
-  Avatar,
   Line,
+  Media,
+  Meta,
+  Row,
+  Schema,
+  SmartLink,
+  Text,
 } from "@once-ui-system/core";
-import { baseURL, about, person, work } from "@/resources";
-import { formatDate } from "@/utils/formatDate";
-import { ScrollToHash, CustomMDX } from "@/components";
-import { Metadata } from "next";
-import { Projects } from "@/components/work/Projects";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
@@ -39,7 +41,7 @@ export async function generateMetadata({
     : routeParams.slug || "";
 
   const posts = getPosts(["src", "app", "work", "projects"]);
-  let post = posts.find((post) => post.slug === slugPath);
+  const post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
 
@@ -47,7 +49,7 @@ export async function generateMetadata({
     title: post.metadata.title,
     description: post.metadata.summary,
     baseURL: baseURL,
-    image: post.metadata.image || `/api/og/generate?title=${post.metadata.title}`,
+    image: post.metadata.image || "/images/og/home.jpg",
     path: `${work.path}/${post.slug}`,
   });
 }
@@ -62,16 +64,23 @@ export default async function Project({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
+  const post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
 
   if (!post) {
     notFound();
   }
 
   const avatars =
-    post.metadata.team?.map((person) => ({
-      src: person.avatar,
-    })) || [];
+    post.metadata.team
+      ?.map((member) => {
+        const fallbackAvatar =
+          member.name === person.name || member.name.includes(person.firstName) ? person.avatar : "";
+
+        return {
+          src: member.avatar || fallbackAvatar,
+        };
+      })
+      .filter((member) => member.src) || [];
 
   return (
     <Column as="section" maxWidth="m" horizontal="center" gap="l">
@@ -84,7 +93,7 @@ export default async function Project({
         datePublished={post.metadata.publishedAt}
         dateModified={post.metadata.publishedAt}
         image={
-          post.metadata.image || `/api/og/generate?title=${encodeURIComponent(post.metadata.title)}`
+          post.metadata.image || "/images/og/home.jpg"
         }
         author={{
           name: person.name,
@@ -100,6 +109,27 @@ export default async function Project({
           {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
         </Text>
         <Heading variant="display-strong-m">{post.metadata.title}</Heading>
+        <Text
+          variant="body-default-m"
+          onBackground="neutral-weak"
+          align="center"
+          style={{ maxWidth: "44rem" }}
+        >
+          {post.metadata.summary}
+        </Text>
+        {post.metadata.link && (
+          <SmartLink href={post.metadata.link}>
+            <Text variant="body-default-s" onBackground="brand-weak">
+              View publication
+            </Text>
+          </SmartLink>
+        )}
+        <ProjectBadgeStrip
+          domain={post.metadata.domain}
+          focus={post.metadata.focus}
+          scale={post.metadata.scale}
+          techStack={post.metadata.techStack || []}
+        />
       </Column>
       <Row marginBottom="32" horizontal="center">
         <Row gap="16" vertical="center">

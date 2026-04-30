@@ -1,3 +1,9 @@
+import { publications } from "@/app/publications/content";
+import { teaching } from "@/app/teaching/content";
+import { FooterContact } from "@/components";
+import TableOfContents from "@/components/about/TableOfContents";
+import styles from "@/components/about/about.module.scss";
+import { about, baseURL, person, social } from "@/resources";
 import {
   Avatar,
   Button,
@@ -6,15 +12,12 @@ import {
   Icon,
   IconButton,
   Media,
+  Meta,
+  Row,
+  Schema,
   Tag,
   Text,
-  Meta,
-  Schema,
-  Row,
 } from "@once-ui-system/core";
-import { baseURL, about, person, social } from "@/resources";
-import TableOfContents from "@/components/about/TableOfContents";
-import styles from "@/components/about/about.module.scss";
 import React from "react";
 
 export async function generateMetadata() {
@@ -22,7 +25,7 @@ export async function generateMetadata() {
     title: about.title,
     description: about.description,
     baseURL: baseURL,
-    image: `/api/og/generate?title=${encodeURIComponent(about.title)}`,
+    image: "/images/og/home.jpg",
     path: about.path,
   });
 }
@@ -49,6 +52,30 @@ export default function About() {
       display: about.technical.display,
       items: about.technical.skills.map((skill) => skill.title),
     },
+    ...(about.coordination
+      ? [
+          {
+            title: about.coordination.title,
+            display: about.coordination.display,
+            items: about.coordination.items.map((item) => item.title),
+          },
+        ]
+      : []),
+    ...(about.awards
+      ? [
+          {
+            title: about.awards.title,
+            display: about.awards.display,
+            items: about.awards.items.map((item) => item.title),
+          },
+        ]
+      : []),
+    {
+      title: publications.label,
+      display: true,
+      items: [],
+      href: publications.path,
+    },
   ];
   return (
     <Column maxWidth="m">
@@ -58,7 +85,7 @@ export default function About() {
         title={about.title}
         description={about.description}
         path={about.path}
-        image={`/api/og/generate?title=${encodeURIComponent(about.title)}`}
+        image="/images/og/home.jpg"
         author={{
           name: person.name,
           url: `${baseURL}${about.path}`,
@@ -77,7 +104,7 @@ export default function About() {
           <TableOfContents structure={structure} about={about} />
         </Column>
       )}
-      <Row fillWidth s={{ direction: "column"}} horizontal="center">
+      <Row fillWidth s={{ direction: "column" }} horizontal="center">
         {about.avatar.display && (
           <Column
             className={styles.avatar}
@@ -106,6 +133,58 @@ export default function About() {
                   </Tag>
                 ))}
               </Row>
+            )}
+            {person.hardSkills && person.hardSkills.length > 0 && (
+              <Column fillWidth gap="8">
+                <Text variant="label-default-s" onBackground="neutral-weak">
+                  Toolkit:
+                </Text>
+                <Row wrap gap="8">
+                  {person.hardSkills.map((skill, index) => (
+                    <Tag key={index} size="l">
+                      {skill}
+                    </Tag>
+                  ))}
+                </Row>
+              </Column>
+            )}
+            {about.strengths.display && about.strengths.items.length > 0 && (
+              <Column fillWidth gap="12">
+                <Heading as="h2" id={about.strengths.title} variant="heading-strong-l">
+                  {about.strengths.title}
+                </Heading>
+                <Column as="ul" fillWidth gap="8" paddingLeft="20">
+                  {about.strengths.items.map((item, index) => (
+                    <Text
+                      as="li"
+                      key={`${item}-${index}`}
+                      variant="body-default-s"
+                      onBackground="neutral-medium"
+                    >
+                      {item}
+                    </Text>
+                  ))}
+                </Column>
+              </Column>
+            )}
+            {about.studies.display && (
+              <Column fillWidth gap="12">
+                <Heading as="h2" id={about.studies.title} variant="heading-strong-l">
+                  {about.studies.title}
+                </Heading>
+                <Column fillWidth gap="m">
+                  {about.studies.institutions.map((institution, index) => (
+                    <Column key={`${institution.name}-${index}`} fillWidth gap="4">
+                      <Text id={institution.name} variant="body-strong-m">
+                        {institution.name}
+                      </Text>
+                      <Text variant="body-default-s" onBackground="neutral-weak">
+                        {institution.description}
+                      </Text>
+                    </Column>
+                  ))}
+                </Column>
+              </Column>
             )}
           </Column>
         )}
@@ -153,46 +232,50 @@ export default function About() {
               {person.role}
             </Text>
             {social.length > 0 && (
-              <Row
-                className={styles.blockAlign}
-                paddingTop="20"
-                paddingBottom="8"
-                gap="8"
-                wrap
-                horizontal="center"
-                fitWidth
-                data-border="rounded"
-              >
-                {social
-                      .filter((item) => item.essential)
-                      .map(
-                  (item) =>
-                    item.link && (
-                      <React.Fragment key={item.name}>
-                        <Row s={{ hide: true }}>
-                          <Button
-                            key={item.name}
-                            href={item.link}
-                            prefixIcon={item.icon}
-                            label={item.name}
-                            size="s"
-                            weight="default"
-                            variant="secondary"
-                          />
-                        </Row>
-                        <Row hide s={{ hide: false }}>
-                          <IconButton
-                            size="l"
-                            key={`${item.name}-icon`}
-                            href={item.link}
-                            icon={item.icon}
-                            variant="secondary"
-                          />
-                        </Row>
-                      </React.Fragment>
-                    ),
+              <Column className={styles.blockAlign} paddingTop="20" paddingBottom="8" gap="8">
+                <Row gap="8" wrap horizontal="center" fitWidth data-border="rounded">
+                  {social
+                    .filter((item) => item.essential)
+                    .map(
+                      (item) =>
+                        item.link && (
+                          <React.Fragment key={item.name}>
+                            <Row s={{ hide: true }}>
+                              <Button
+                                key={item.name}
+                                href={item.link}
+                                prefixIcon={item.icon}
+                                label={item.name}
+                                size="s"
+                                weight="default"
+                                variant="secondary"
+                              />
+                            </Row>
+                            <Row hide s={{ hide: false }}>
+                              <IconButton
+                                size="l"
+                                key={`${item.name}-icon`}
+                                href={item.link}
+                                icon={item.icon}
+                                variant="secondary"
+                              />
+                            </Row>
+                          </React.Fragment>
+                        ),
+                    )}
+                  <Row s={{ hide: true }}>
+                    <FooterContact email={person.email} />
+                  </Row>
+                  <Row hide s={{ hide: false }}>
+                    <FooterContact email={person.email} compact />
+                  </Row>
+                </Row>
+                {about.references?.display && (
+                  <Text variant="body-default-s" onBackground="neutral-weak">
+                    {about.references.note}
+                  </Text>
                 )}
-              </Row>
+              </Column>
             )}
           </Column>
 
@@ -257,30 +340,17 @@ export default function About() {
                     )}
                   </Column>
                 ))}
+                <Row>
+                  <Button
+                    href={teaching.path}
+                    variant="secondary"
+                    prefixIcon="book"
+                    label="See Teaching And Mentoring"
+                  />
+                </Row>
               </Column>
             </>
           )}
-
-          {about.studies.display && (
-            <>
-              <Heading as="h2" id={about.studies.title} variant="display-strong-s" marginBottom="m">
-                {about.studies.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {about.studies.institutions.map((institution, index) => (
-                  <Column key={`${institution.name}-${index}`} fillWidth gap="4">
-                    <Text id={institution.name} variant="heading-strong-l">
-                      {institution.name}
-                    </Text>
-                    <Text variant="heading-default-xs" onBackground="neutral-weak">
-                      {institution.description}
-                    </Text>
-                  </Column>
-                ))}
-              </Column>
-            </>
-          )}
-
           {about.technical.display && (
             <>
               <Heading
@@ -330,6 +400,71 @@ export default function About() {
                         ))}
                       </Row>
                     )}
+                  </Column>
+                ))}
+              </Column>
+            </>
+          )}
+          {about.coordination?.display && (
+            <>
+              <Heading
+                as="h2"
+                id={about.coordination.title}
+                variant="display-strong-s"
+                marginTop="xl"
+                marginBottom="40"
+              >
+                {about.coordination.title}
+              </Heading>
+              <Column fillWidth gap="l">
+                {about.coordination.items.map((item, index) => (
+                  <Column key={`${item.title}-${index}`} fillWidth gap="4">
+                    <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
+                      <Text id={item.title} variant="heading-strong-l">
+                        {item.title}
+                      </Text>
+                      {item.timeframe && (
+                        <Text variant="heading-default-xs" onBackground="neutral-weak">
+                          {item.timeframe}
+                        </Text>
+                      )}
+                    </Row>
+                    <Column as="ul" gap="16">
+                      {item.points.map((point, pointIndex) => (
+                        <Text as="li" variant="body-default-m" key={`${item.title}-${pointIndex}`}>
+                          {point}
+                        </Text>
+                      ))}
+                    </Column>
+                  </Column>
+                ))}
+              </Column>
+            </>
+          )}
+          {about.awards?.display && (
+            <>
+              <Heading
+                as="h2"
+                id={about.awards.title}
+                variant="display-strong-s"
+                marginTop="xl"
+                marginBottom="m"
+              >
+                {about.awards.title}
+              </Heading>
+              <Column fillWidth gap="l" marginBottom="40">
+                {about.awards.items.map((item, index) => (
+                  <Column key={`${item.title}-${index}`} fillWidth gap="8">
+                    <Text id={item.title} variant="heading-strong-l">
+                      {item.title}
+                    </Text>
+                    <Column as="ul" gap="16">
+                      {item.details.map((detail, detailIndex) => (
+                        <Text as="li" variant="body-default-m" key={`${item.title}-${detailIndex}`}>
+                          {detail}
+                        </Text>
+                      ))}
+                    </Column>
                   </Column>
                 ))}
               </Column>

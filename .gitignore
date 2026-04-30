@@ -28,6 +28,27 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# private or source assets that should not be published by GitHub Pages
+/src/app/teaching/materials/files/
+/public/legacy-travel/
+/public/images/projects/**/*.eps
+/public/images/projects/**/*.pdf
+/public/images/projects/**/*.R
+/public/images/projects/**/*.xls
+/public/images/projects/**/*.xlsx
+/public/images/projects/**/*.zip
+fromsomeone.md
+/src/.codex
+/src/app/work/projects/.codex
+/src/app/travel/Travel.html
+/src/app/travel/
+/src/components/travel/
+/public/images/travel/
+/public/images/logos/
+/public/images/RBD_2.jpg
+/src/components/Publiacations/
+/src/resources/original/
+
 # vercel
 .vercel
 

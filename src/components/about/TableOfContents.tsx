@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { Column, Flex, Text } from "@once-ui-system/core";
+import type React from "react";
 import styles from "./about.module.scss";
 
 interface TableOfContentsProps {
@@ -9,6 +9,7 @@ interface TableOfContentsProps {
     title: string;
     display: boolean;
     items: string[];
+    href?: string;
   }[];
   about: {
     tableOfContent: {
@@ -56,7 +57,13 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
               className={styles.hover}
               gap="8"
               vertical="center"
-              onClick={() => scrollTo(section.title, 80)}
+              onClick={() => {
+                if (section.href) {
+                  window.location.href = section.href;
+                  return;
+                }
+                scrollTo(section.title, 80);
+              }}
             >
               <Flex height="1" minWidth="16" background="neutral-strong"></Flex>
               <Text>{section.title}</Text>

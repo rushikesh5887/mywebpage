@@ -3,11 +3,22 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Fade, Flex, Line, Row, ToggleButton } from "@once-ui-system/core";
+import {
+  Button,
+  Column,
+  DropdownWrapper,
+  Fade,
+  Flex,
+  Line,
+  Row,
+  ToggleButton,
+} from "@once-ui-system/core";
 
-import { routes, display, person, about, blog, work, gallery } from "@/resources";
-import { ThemeToggle } from "./ThemeToggle";
+import { publications } from "@/app/publications/content";
+import { teaching } from "@/app/teaching/content";
+import { about, display, gallery, person, routes, travel, work } from "@/resources";
 import styles from "./Header.module.scss";
+import { ThemeToggle } from "./ThemeToggle";
 
 type TimeDisplayProps = {
   timeZone: string;
@@ -44,6 +55,9 @@ export default TimeDisplay;
 
 export const Header = () => {
   const pathname = usePathname() ?? "";
+  const isMoreRoute =
+    pathname.startsWith("/teaching") || pathname.startsWith("/gallery") || pathname.startsWith("/travel");
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
 
   return (
     <>
@@ -128,43 +142,83 @@ export const Header = () => {
                   </Row>
                 </>
               )}
-              {routes["/blog"] && (
+              {routes["/publications"] && (
                 <>
                   <Row s={{ hide: true }}>
                     <ToggleButton
-                      prefixIcon="book"
-                      href="/blog"
-                      label={blog.label}
-                      selected={pathname.startsWith("/blog")}
+                      prefixIcon="document"
+                      href="/publications"
+                      label={publications.label}
+                      selected={pathname.startsWith("/publications")}
                     />
                   </Row>
                   <Row hide s={{ hide: false }}>
                     <ToggleButton
-                      prefixIcon="book"
-                      href="/blog"
-                      selected={pathname.startsWith("/blog")}
+                      prefixIcon="document"
+                      href="/publications"
+                      selected={pathname.startsWith("/publications")}
                     />
                   </Row>
                 </>
               )}
-              {routes["/gallery"] && (
-                <>
-                  <Row s={{ hide: true }}>
+              {(routes["/teaching"] || routes["/gallery"] || routes["/travel"]) && (
+                <DropdownWrapper
+                  isOpen={isMoreOpen}
+                  onOpenChange={setIsMoreOpen}
+                  closeAfterClick
+                  placement="bottom-end"
+                  className={styles.moreDropdown}
+                  trigger={
                     <ToggleButton
-                      prefixIcon="gallery"
-                      href="/gallery"
-                      label={gallery.label}
-                      selected={pathname.startsWith("/gallery")}
+                      prefixIcon="globe"
+                      label="More"
+                      selected={isMoreRoute || isMoreOpen}
+                      className={styles.moreTrigger}
+                      aria-expanded={isMoreOpen}
+                      aria-haspopup="menu"
                     />
-                  </Row>
-                  <Row hide s={{ hide: false }}>
-                    <ToggleButton
-                      prefixIcon="gallery"
-                      href="/gallery"
-                      selected={pathname.startsWith("/gallery")}
-                    />
-                  </Row>
-                </>
+                  }
+                  dropdown={
+                    <Column className={styles.moreMenu} padding="4" gap="4">
+                      {routes["/teaching"] && (
+                        <Button
+                          variant={pathname.startsWith("/teaching") ? "primary" : "secondary"}
+                          size="s"
+                          prefixIcon="book"
+                          href="/teaching"
+                          fillWidth
+                          horizontal="start"
+                        >
+                          {teaching.label}
+                        </Button>
+                      )}
+                      {routes["/travel"] && (
+                        <Button
+                          variant={pathname.startsWith("/travel") ? "primary" : "secondary"}
+                          size="s"
+                          prefixIcon="globe"
+                          href="/travel"
+                          fillWidth
+                          horizontal="start"
+                        >
+                          {travel.label}
+                        </Button>
+                      )}
+                      {routes["/gallery"] && (
+                        <Button
+                          variant={pathname.startsWith("/gallery") ? "primary" : "secondary"}
+                          size="s"
+                          prefixIcon="gallery"
+                          href="/gallery"
+                          fillWidth
+                          horizontal="start"
+                        >
+                          {gallery.label}
+                        </Button>
+                      )}
+                    </Column>
+                  }
+                />
               )}
               {display.themeSwitcher && (
                 <>

@@ -1,36 +1,123 @@
-import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
-import { baseURL, about, person, work } from "@/resources";
 import { Projects } from "@/components/work/Projects";
+import { teaching } from "@/app/teaching/content";
+import { about, baseURL, person, work } from "@/resources";
+import { Button, Column, Flex, Heading, Meta, Row, Schema, Text } from "@once-ui-system/core";
+import styles from "./page.module.css";
+
+const workSignals = [
+  {
+    label: "Problem",
+    detail: "What challenge the project addressed and why it was worth solving.",
+  },
+  {
+    label: "Method",
+    detail: "How I approached the modeling, automation, or analytical workflow.",
+  },
+  {
+    label: "Scale",
+    detail: "The size, complexity, or real-world context involved in the work.",
+  },
+  {
+    label: "Outcome",
+    detail: "What improved, what was produced, or what was validated.",
+  },
+  {
+    label: "Tools",
+    detail: "The stack used across the workflow, not just a list of software names.",
+  },
+  {
+    label: "Why it mattered",
+    detail: "Why the result was useful for research, policy, operations, or practice.",
+  },
+];
 
 export async function generateMetadata() {
   return Meta.generate({
     title: work.title,
     description: work.description,
     baseURL: baseURL,
-    image: `/api/og/generate?title=${encodeURIComponent(work.title)}`,
+    image: "/images/og/home.jpg",
     path: work.path,
   });
 }
 
 export default function Work() {
   return (
-    <Column maxWidth="m" paddingTop="24">
+    <Column maxWidth="m" paddingTop="24" gap="40">
       <Schema
         as="webPage"
         baseURL={baseURL}
         path={work.path}
         title={work.title}
         description={work.description}
-        image={`/api/og/generate?title=${encodeURIComponent(work.title)}`}
+        image="/images/og/home.jpg"
         author={{
           name: person.name,
           url: `${baseURL}${about.path}`,
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Heading marginBottom="l" variant="heading-strong-xl" align="center">
-        {work.title}
-      </Heading>
+
+      <Column gap="20" horizontal="center" align="center">
+        <Text variant="label-strong-m" onBackground="brand-weak">
+          Selected Work
+        </Text>
+        <Heading variant="display-strong-m" align="center">
+          Case studies that show how I turn complex data into usable analytical systems.
+        </Heading>
+        <Text
+          variant="body-default-m"
+          onBackground="neutral-weak"
+          align="center"
+          style={{ maxWidth: "52rem" }}
+        >
+          This page shows how I work in practice. Each project summarizes a real-world problem, the workflow I built to solve it, the tools I used, the scale of the data, the outcome of the work, and why it mattered. These are evidence of how I scope problems, build workflows, handle messy data, and deliver outputs that others can trust and use.
+        </Text>
+        <Row gap="12" wrap horizontal="center">
+          <Button href="/documents/cv.pdf" download variant="secondary" prefixIcon="download">
+            Download CV
+          </Button>
+          <Button href={teaching.path} variant="secondary" prefixIcon="book">
+            Teaching & Mentoring
+          </Button>
+        </Row>
+      </Column>
+
+      <section className={styles.lookForSection}>
+        <Column className={styles.lookForIntro} gap="12">
+          <Text variant="label-strong-s" onBackground="brand-weak" className={styles.eyebrow}>
+            What To Look For
+          </Text>
+          <Heading as="h2" variant="heading-strong-l" className={styles.heading}>
+            These are not just project summaries.
+          </Heading>
+          <Text variant="body-default-s" onBackground="neutral-weak" className={styles.introText}>
+            They are evidence of how I scope problems, build workflows, handle messy data, and
+            deliver outputs that others can trust and use.
+          </Text>
+        </Column>
+        <div className={styles.signalGrid}>
+          {workSignals.map((signal) => (
+            <article key={signal.label} className={styles.signalCard}>
+              <Text
+                variant="label-strong-s"
+                onBackground="brand-weak"
+                className={styles.signalLabel}
+              >
+                {signal.label}
+              </Text>
+              <Text
+                variant="body-default-s"
+                onBackground="neutral-weak"
+                className={styles.signalDetail}
+              >
+                {signal.detail}
+              </Text>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <Projects />
     </Column>
   );

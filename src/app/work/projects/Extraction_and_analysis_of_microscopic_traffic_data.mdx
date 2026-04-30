@@ -1,0 +1,68 @@
+---
+title: "Data Pipeline for Traffic Trajectory and Behavior Analysis"
+publishedAt: "2019-11-26"
+link: "https://doi.org/10.1080/19427867.2019.1695563"
+summary: "Built a semi-automated trajectory pipeline that turned raw traffic video into structured behavioral data at scale, cutting processing time for a 30-minute recording from about 100 hours to 20 hours and making mixed-traffic analysis practical."
+domain: "Mobility Analytics"
+focus: "Computer Vision, Vehicle Tracking, and Trajectory Analytics"
+scale: "5M+ datapoints"
+techStack:
+  - "Python: OpenCV, Pandas, Numpy"
+  - "MATLAB"
+  - "R: ggplot2, dplyr, Hmisc, and supporting analysis packages"
+images:
+  - "/images/projects/Vetre_and_exploration/calibrated_image.PNG"
+  - "/images/projects/Vetre_and_exploration/methodology.png"
+  - "/images/projects/Vetre_and_exploration/working_algorithm.png"
+team:
+  - name: "Rushikesh Amrutsamanvar"
+    role: "Doctoral Researcher"
+    avatar: "/images/RBD_1.jpg"
+    linkedIn: "https://www.linkedin.com/in/dr-rushikesh-amrutsamanvar-30849349/"
+  - name: "Bharathiraja Muthurajan"
+    role: "Doctoral Researcher"
+    linkedIn: "https://www.linkedin.com/in/brti/"
+---
+
+## Project Summary
+
+I built `VeTre`, a semi-automated pipeline for extracting microscopic vehicle trajectories from mixed-traffic video, where dense interactions and occlusion made fully automated tracking unreliable. The workflow combined analyst-guided tracking, camera calibration, and image-to-road projection to convert raw footage into structured trajectory data.
+
+I then used `MATLAB` and `R` to turn those trajectories into interaction datasets, engineered features, and study-ready outputs for following, staggered-following, and lateral-movement analysis. This is one of the clearest examples in the portfolio of building a full raw-to-structured data workflow for difficult real-world conditions.
+
+## Business and Research Impact
+
+This work made high-resolution traffic data collection practical in lane-less and heterogeneous traffic conditions that standard tools struggle to capture. For a `30`-minute video, the pipeline reduced processing time to about `20` skilled hours compared with roughly `100` hours reported for similar semi-automatic approaches.
+
+The resulting data supported behavior modeling, traffic simulation calibration, and safety analysis. Archived outputs from the codebase include `700` trajectory files and more than `300k` frame-level records in one processed batch, showing the value of a reusable analytical pipeline instead of a one-off extraction workflow.
+
+## What I built
+
+- **Trajectory extraction pipeline:** Built a `Python` workflow that converted raw traffic video into structured frame-level trajectory data for downstream analysis.
+- **Large-scale dataset generation:** Produced and validated a `5M+` datapoint dataset to support behavior analysis, modeling, and calibration work.
+- **Feature engineering layer:** Used `MATLAB` to derive interaction features for following behavior, lateral positioning, lateral shift propensity, density, and speed across vehicle classes.
+- **Measurement validation:** Applied camera calibration and coordinate mapping to recover roadway positions from image space and improve data reliability.
+- **Repeatable processing workflow:** Designed the system to generate hundreds of trajectory files, merge intermediate datasets, segment interactions by vehicle class, and export analysis-ready outputs.
+- **Workflow automation:** Reduced a representative extraction workflow from about `27` manual clicks to `3` clicks for a short tracked segment while still supporting multi-object tracking.
+- **Reporting outputs:** Used `MATLAB` and `R` to generate summary statistics, analytical outputs, and publication-ready visualizations.
+
+## Skills and Technologies
+
+- `Computer Vision Pipeline` for video-based trajectory extraction and analyst-guided tracking
+- `Trajectory Data Engineering` for large-scale dataset generation and transformation
+- `Feature Engineering` for behavioral, density, and speed metrics
+- `Data Validation` for coordinate recovery, calibration, and quality checks
+- `Behavioral Analytics` for vehicle interaction analysis and class-wise segmentation
+- `Workflow Automation` for reducing manual effort in extraction and preprocessing
+- `Python` for data processing, transformation, and analytics
+- `MATLAB` for feature engineering and analytical summaries
+- `R` for visualization and downstream analysis outputs
+- `OpenCV` and `dlib` for video-based extraction
+
+## Outcome
+
+The project produced a reusable multi-stage data pipeline and a high-resolution behavioral dataset from challenging real-world video. For an applied data science role, it shows that I can turn messy raw inputs into validated structured data, engineer useful features, combine multiple tools across one workflow, and produce outputs that support modeling and decision-making.
+
+## For more information
+
+- [Published article in Transportation Letters](https://doi.org/10.1080/19427867.2019.1695563)

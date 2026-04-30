@@ -17,6 +17,10 @@ type Metadata = {
   image?: string;
   images: string[];
   tag?: string;
+  domain?: string;
+  focus?: string;
+  scale?: string;
+  techStack?: string[];
   team: Team[];
   link?: string;
 };
@@ -47,6 +51,10 @@ function readMDXFile(filePath: string) {
     image: data.image || "",
     images: data.images || [],
     tag: data.tag || [],
+    domain: data.domain || "",
+    focus: data.focus || "",
+    scale: data.scale || "",
+    techStack: data.techStack || [],
     team: data.team || [],
     link: data.link || "",
   };

@@ -1,6 +1,14 @@
+import { ProjectCard } from "@/components";
+import { person } from "@/resources";
 import { getPosts } from "@/utils/utils";
 import { Column } from "@once-ui-system/core";
-import { ProjectCard } from "@/components";
+
+const preferredProjectOrder = [
+  "Carbon_Modeling",
+  "Lateral_movement_decisions",
+  "Extraction_and_analysis_of_microscopic_traffic_data",
+  "Staggered_following",
+] as const;
 
 interface ProjectsProps {
   range?: [number, number?];
@@ -16,6 +24,19 @@ export function Projects({ range, exclude }: ProjectsProps) {
   }
 
   const sortedProjects = allProjects.sort((a, b) => {
+    const aPriority = preferredProjectOrder.indexOf(
+      a.slug as (typeof preferredProjectOrder)[number],
+    );
+    const bPriority = preferredProjectOrder.indexOf(
+      b.slug as (typeof preferredProjectOrder)[number],
+    );
+
+    if (aPriority !== -1 || bPriority !== -1) {
+      if (aPriority === -1) return 1;
+      if (bPriority === -1) return -1;
+      return aPriority - bPriority;
+    }
+
     return new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime();
   });
 
@@ -34,8 +55,22 @@ export function Projects({ range, exclude }: ProjectsProps) {
           title={post.metadata.title}
           description={post.metadata.summary}
           content={post.content}
-          avatars={post.metadata.team?.map((member) => ({ src: member.avatar })) || []}
+          avatars={
+            post.metadata.team
+              ?.map((member) => ({
+                src:
+                  member.avatar ||
+                  (member.name === person.name || member.name.includes(person.firstName)
+                    ? person.avatar
+                    : ""),
+              }))
+              .filter((member) => member.src) || []
+          }
           link={post.metadata.link || ""}
+          domain={post.metadata.domain}
+          focus={post.metadata.focus}
+          scale={post.metadata.scale}
+          techStack={post.metadata.techStack || []}
         />
       ))}
     </Column>

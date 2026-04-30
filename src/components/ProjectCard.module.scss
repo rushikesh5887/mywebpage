@@ -1,0 +1,28 @@
+.titleBlock {
+  align-items: flex-start;
+}
+
+.titleLink {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.titleHeading {
+  transition: color 180ms ease;
+}
+
+.titleHint {
+  margin: 0;
+}
+
+.titleLink:hover,
+.titleLink:focus-visible {
+  transform: translateY(-1px);
+}
+
+.titleLink:hover .titleHeading,
+.titleLink:focus-visible .titleHeading {
+  color: #17363d;
+}

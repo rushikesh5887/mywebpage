@@ -1,0 +1,76 @@
+---
+title: "Modeling Lateral Movement Decisions of Powered Two Wheelers in Disordered Heterogeneous Traffic Conditions"
+publishedAt: "2020-11-01"
+link: "https://www.tandfonline.com/doi/full/10.1080/19427867.2020.1839718"
+summary: "Modeled motorcyclist lateral movement in mixed traffic as a multiclass prediction problem, combining feature engineering, statistical baselines, and machine learning on 5M+ trajectory datapoints to identify key behavioral drivers for safety-focused applications."
+domain: "Traffic Safety Analytics"
+focus: "Decision Modeling and Driver Behavior"
+scale: "Naturalistic Trajectory Data, 5M+ datapoints"
+techStack:
+  - "R: caret, e1071, Boruta, VSURF"
+  - "Python: Pandas, Scikit-learn, Numpy"
+  - "MATLAB, SPSS"
+  - "ML: Random Forest, XGBoost, ANN, KNN, SVM"
+images:
+  - "/images/projects/Lat_move_Decisions/lateralshift_structure_final.png"
+  - "/images/projects/Lat_move_Decisions/schematic_diagram_for_decision.svg"
+  - "/images/projects/Lat_move_Decisions/Driver_vision.svg"
+  - "/images/projects/Lat_move_Decisions/systematic_interpretation.svg"
+  - "/images/projects/Lat_move_Decisions/Boruta_with_vars_final.png"
+  - "/images/projects/Lat_move_Decisions/balanced_correct_edited.svg"
+  - "/images/projects/Lat_move_Decisions/model_comparison.png"
+  - "/images/projects/Lat_move_Decisions/4.random_forest_gini_importance.png"
+
+team:
+  - name: "Rushikesh Amrutsamanvar"
+    role: "Doctoral Researcher"
+    avatar: "/images/RBD_1.jpg"
+    linkedIn: "https://www.linkedin.com/in/dr-rushikesh-amrutsamanvar-30849349/"
+---
+
+## Project Summary
+
+Powered two-wheelers make up a large share of traffic in many countries, but their movement behavior in disordered mixed traffic is still under-modeled. I framed lateral movement decisions as a multiclass prediction problem and built a workflow that combined feature engineering, statistical baselines, and machine learning on large-scale trajectory data.
+
+The project benchmarked multiple models, identified `Random Forest` as the strongest performer, and showed that surrounding-vehicle speed and spatial configuration can be used to predict rider maneuvering behavior with strong accuracy.
+
+## Business and Research Impact
+
+This research addressed an important gap in intelligent transportation systems for powered two-wheelers, especially where lane discipline is weak and rider interactions are highly dynamic. By outperforming traditional statistical approaches, it provided a stronger basis for active safety systems, rider-assistance logic, and future connected-vehicle applications that need to account for PTWs in realistic traffic conditions.
+
+As a portfolio case study, it shows end-to-end applied machine learning on behavioral data: feature engineering, class-imbalance handling, model comparison, interpretability, and translation into a real mobility-safety context.
+
+## Skills and Technologies
+
+- **Machine Learning:** `Random Forest`, `K-Nearest Neighbors`, `Artificial Neural Networks`, `XGBoost`, `SVM`
+- **Feature Engineering and Selection:** `Boruta`, `glmnet`, `VSURF`, domain-specific feature screening, and interpretable predictor selection
+- **Statistical Modeling:** `Multinomial logit models`, cross-validation, class-imbalance handling, and baseline comparison
+- **Data Analysis:** Exploratory data analysis, multicollinearity checks, categorical association analysis, and data profiling
+- **R Programming:** Extensive use of `caret`, `randomForest`, `glmnet`, `VSURF`, `ggplot2`, `dplyr`, `Hmisc`, `GoodmanKruskal`, `Boruta`, `nnet`, and related analysis packages
+- **Data Visualization:** Reproducible visualization workflows in `R` for interpretation and publication outputs
+
+## What I Built
+
+- **Multiclass classification framework:** Built a full modeling pipeline for PTW lateral movement decisions and evaluated multiple algorithms under the same problem formulation.
+- **Feature-engineering and selection workflow:** Implemented several screening approaches, including `Boruta`, embedded methods, and wrapper methods such as `VSURF`, to improve interpretability and model performance.
+- **Statistical baseline models:** Built multinomial logit models in `R` and `SPSS` to support interpretation and benchmark the machine learning results.
+- **Predictive modeling implementation:** Developed tuned `KNN`, `SVM`, `ANN`, `XGBoost`, and `Random Forest` classifiers with preprocessing, cross-validation, and comparative performance evaluation.
+- **Exploratory and diagnostic analysis:** Created reproducible `R` workflows for data profiling, association testing, variable checks, and handling mixed numeric and categorical inputs.
+- **ITS-oriented interpretation:** Showed how PTW movement patterns can be inferred from surrounding-vehicle speed and spatial information, with clear relevance for sensor-based safety systems.
+
+
+## Challenges and Learnings
+
+The primary challenge was handling class imbalance in a multiclass setting while still keeping the model behavior interpretable in a complex traffic environment. Addressing that required a careful combination of feature engineering, model comparison, and validation rather than relying only on raw predictive accuracy.
+
+This project reinforced how important domain-aware feature engineering and selection are when machine learning is applied to safety-critical mobility problems. It also showed the value of combining statistical models and ML models in the same workflow to balance interpretability and performance.
+
+## Outcome
+
+The `Random Forest` model achieved the strongest classification performance among the evaluated approaches and produced actionable insight into the variables that shape PTW lateral movement. The work showed that rider decisions can be predicted from surrounding traffic context, which is an important step toward PTW-aware safety systems and assistance technologies.
+
+As a case study, it demonstrates practical machine learning, feature engineering, and behavioral analytics on large naturalistic traffic data while keeping the results tied to a real transportation problem.
+
+## For more information:
+
+- [Published Article in Transportation Letters](https://www.tandfonline.com/doi/full/10.1080/19427867.2020.1839718)
