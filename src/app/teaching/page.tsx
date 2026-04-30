@@ -9,7 +9,7 @@ export async function generateMetadata() {
     title: teaching.title,
     description: teaching.description,
     baseURL: baseURL,
-    image: "/images/og/home.jpg",
+    image: "/images/og/rushikesh-home.jpg",
     path: teaching.path,
   });
 }
@@ -23,7 +23,7 @@ export default function TeachingPage() {
         title={teaching.title}
         description={teaching.description}
         path={teaching.path}
-        image="/images/og/home.jpg"
+        image="/images/og/rushikesh-home.jpg"
         author={{
           name: person.name,
           url: `${baseURL}${about.path}`,

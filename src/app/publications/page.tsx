@@ -17,7 +17,7 @@ export async function generateMetadata() {
     title: publications.title,
     description: publications.description,
     baseURL: baseURL,
-    image: "/images/og/home.jpg",
+    image: "/images/og/rushikesh-home.jpg",
     path: publications.path,
   });
 }
@@ -31,7 +31,7 @@ export default function PublicationsPage() {
         path={publications.path}
         title={publications.title}
         description={publications.description}
-        image="/images/og/home.jpg"
+        image="/images/og/rushikesh-home.jpg"
         author={{
           name: person.name,
           url: `${baseURL}${about.path}`,

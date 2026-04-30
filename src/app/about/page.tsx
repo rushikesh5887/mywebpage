@@ -26,7 +26,7 @@ export async function generateMetadata() {
     title: about.title,
     description: about.description,
     baseURL: baseURL,
-    image: "/images/og/home.jpg",
+    image: "/images/og/rushikesh-home.jpg",
     path: about.path,
   });
 }
@@ -86,7 +86,7 @@ export default function About() {
         title={about.title}
         description={about.description}
         path={about.path}
-        image="/images/og/home.jpg"
+        image="/images/og/rushikesh-home.jpg"
         author={{
           name: person.name,
           url: `${baseURL}${about.path}`,
