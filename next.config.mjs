@@ -18,15 +18,6 @@ const nextConfig = {
   trailingSlash: isStaticExport,
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   transpilePackages: ["next-mdx-remote"],
-  experimental: {
-    optimizePackageImports: [
-      "@once-ui-system/core",
-      "react-icons/fa6",
-      "react-icons/hi2",
-      "react-icons/pi",
-      "react-icons/si",
-    ],
-  },
   images: {
     unoptimized: isStaticExport || isDevelopment,
     remotePatterns: [
