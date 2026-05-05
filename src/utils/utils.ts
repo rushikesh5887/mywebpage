@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { notFound } from "next/navigation";
 
 type Team = {
   name: string;
@@ -15,6 +16,7 @@ type Metadata = {
   publishedAt: string;
   summary: string;
   image?: string;
+  heroImage?: string;
   images: string[];
   tag?: string;
   domain?: string;
@@ -25,7 +27,9 @@ type Metadata = {
   link?: string;
 };
 
-import { notFound } from "next/navigation";
+type GetPostsOptions = {
+  includeContent?: boolean;
+};
 
 function getMDXFiles(dir: string) {
   if (!fs.existsSync(dir)) {
@@ -35,11 +39,12 @@ function getMDXFiles(dir: string) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
 }
 
-function readMDXFile(filePath: string) {
+function readMDXFile(filePath: string, options: GetPostsOptions = {}) {
   if (!fs.existsSync(filePath)) {
     notFound();
   }
 
+  const { includeContent = true } = options;
   const rawContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(rawContent);
 
@@ -49,6 +54,7 @@ function readMDXFile(filePath: string) {
     publishedAt: data.publishedAt,
     summary: data.summary || "",
     image: data.image || "",
+    heroImage: data.heroImage || "",
     images: data.images || [],
     tag: data.tag || [],
     domain: data.domain || "",
@@ -59,13 +65,13 @@ function readMDXFile(filePath: string) {
     link: data.link || "",
   };
 
-  return { metadata, content };
+  return { metadata, content: includeContent ? content : "" };
 }
 
-function getMDXData(dir: string) {
+function getMDXData(dir: string, options: GetPostsOptions = {}) {
   const mdxFiles = getMDXFiles(dir);
   return mdxFiles.map((file) => {
-    const { metadata, content } = readMDXFile(path.join(dir, file));
+    const { metadata, content } = readMDXFile(path.join(dir, file), options);
     const slug = path.basename(file, path.extname(file));
 
     return {
@@ -76,7 +82,7 @@ function getMDXData(dir: string) {
   });
 }
 
-export function getPosts(customPath = ["", "", "", ""]) {
+export function getPosts(customPath = ["", "", "", ""], options: GetPostsOptions = {}) {
   const postsDir = path.join(process.cwd(), ...customPath);
-  return getMDXData(postsDir);
+  return getMDXData(postsDir, options);
 }

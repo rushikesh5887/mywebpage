@@ -242,7 +242,7 @@ export default function Home() {
               Review all case studies
             </Link>
           </div>
-          <Projects range={[1, 3]} />
+          <Projects />
         </section>
       </RevealFx>
     </Column>

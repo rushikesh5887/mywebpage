@@ -19,7 +19,6 @@ interface ProjectCardProps {
   priority?: boolean;
   images: string[];
   title: string;
-  content: string;
   description: string;
   avatars: { src: string }[];
   link: string;
@@ -33,7 +32,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   href,
   images = [],
   title,
-  content,
   description,
   avatars,
   link,
@@ -85,7 +83,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </SmartLink>
           </Column>
         )}
-        {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
+        {(avatarItems?.length > 0 || hasSummary || hasBadges || link) && (
           <Column flex={7} gap="16">
             {avatarItems?.length > 0 && <AvatarGroup avatars={avatarItems} size="m" reverse />}
             {hasSummary && (

@@ -16,7 +16,7 @@ interface ProjectsProps {
 }
 
 export function Projects({ range, exclude }: ProjectsProps) {
-  let allProjects = getPosts(["src", "app", "work", "projects"]);
+  let allProjects = getPosts(["src", "app", "work", "projects"], { includeContent: false });
 
   // Exclude by slug (exact match)
   if (exclude && exclude.length > 0) {
@@ -54,7 +54,6 @@ export function Projects({ range, exclude }: ProjectsProps) {
           images={post.metadata.images}
           title={post.metadata.title}
           description={post.metadata.summary}
-          content={post.content}
           avatars={
             post.metadata.team
               ?.map((member) => ({

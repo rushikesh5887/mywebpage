@@ -46,11 +46,17 @@ export async function generateMetadata({
 
   if (!post) return {};
 
+  const previewImage =
+    post.metadata.image ||
+    post.metadata.heroImage ||
+    post.metadata.images[0] ||
+    "/images/og/rushikesh-home.jpg";
+
   return Meta.generate({
     title: post.metadata.title,
     description: post.metadata.summary,
     baseURL: baseURL,
-    image: post.metadata.image || "/images/og/rushikesh-home.jpg",
+    image: previewImage,
     path: `${work.path}/${post.slug}`,
   });
 }
@@ -83,6 +89,13 @@ export default async function Project({
       })
       .filter((member) => member.src) || [];
 
+  const previewImage =
+    post.metadata.image ||
+    post.metadata.heroImage ||
+    post.metadata.images[0] ||
+    "/images/og/rushikesh-home.jpg";
+  const heroImage = post.metadata.heroImage || post.metadata.images[0];
+
   return (
     <Column as="section" maxWidth="m" horizontal="center" gap="l">
       <Schema
@@ -93,9 +106,7 @@ export default async function Project({
         description={post.metadata.summary}
         datePublished={post.metadata.publishedAt}
         dateModified={post.metadata.publishedAt}
-        image={
-          post.metadata.image || "/images/og/rushikesh-home.jpg"
-        }
+        image={previewImage}
         author={{
           name: person.name,
           url: `${baseURL}${about.path}`,
@@ -149,13 +160,13 @@ export default async function Project({
           </Text>
         </Row>
       </Row>
-      {post.metadata.images.length > 0 && (
+      {heroImage && (
         <Media
           priority
           aspectRatio="16 / 9"
           radius="m"
-          alt="image"
-          src={withBasePath(post.metadata.images[0])}
+          alt={post.metadata.title}
+          src={withBasePath(heroImage)}
         />
       )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">

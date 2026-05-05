@@ -2,22 +2,22 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:ns1="http://www.iki.fi/pav/software/textext/"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="204.16023mm"
    height="88.950607mm"
    viewBox="0 0 204.16023 88.950607"
    version="1.1"
    id="svg12600"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="systematic_interpretation.svg">
+   inkscape:version="1.4.3 (1:1.4.3+202512261034+0d15f75042)"
+   sodipodi:docname="systematic_interpretation.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:ns1="http://www.iki.fi/pav/software/textext/">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="283.65572"
-     inkscape:cy="179.64229"
+     inkscape:cx="283.57143"
+     inkscape:cy="179.64286"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -36,10 +36,14 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-height="906"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:export-bgcolor="#ffffffff" />
   <defs
      id="defs12594">
     <marker
@@ -241,28 +245,24 @@
        id="text65631"
        y="107.95358"
        x="28.187464"
-       style="font-style:oblique;font-weight:normal;font-size:4.06113768px;font-family:sans-serif;text-anchor:start;fill:#000000;stroke-width:0.50220263"
+       style="font-style:oblique;font-weight:normal;font-size:4.06114px;font-family:sans-serif;text-anchor:start;fill:#000000;stroke-width:0.502203"
        font-size="22.5778"
-       transform="scale(1.0008149,0.99918573)">
-      <tspan
+       transform="scale(1.0008149,0.99918573)"><tspan
          id="tspan65629"
          y="107.95358"
          x="28.187464"
-         style="stroke-width:0.50220263">t</tspan>
-    </text>
+         style="stroke-width:0.502203">t</tspan></text>
     <text
        id="text65635"
        y="52.502682"
        x="163.71208"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333359px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;stroke-width:0.50220263"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;stroke-width:0.502203"
        font-size="19.7556"
-       transform="scale(1.0008149,0.99918575)">
-      <tspan
+       transform="scale(1.0008149,0.99918575)"><tspan
          id="tspan65633"
          y="52.502682"
          x="163.71208"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333359px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.50220263">Path of the PTW</tspan>
-    </text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.502203">Path of the PTW</tspan></text>
     <g
        id="g65643"
        style="stroke-width:2.22379088;stroke-miterlimit:4;stroke-dasharray:5.55947671;stroke-dashoffset:0"
@@ -321,28 +321,24 @@
        id="text65675"
        y="72.127548"
        x="29.313465"
-       style="font-style:normal;font-weight:normal;font-size:3.04584408px;font-family:sans-serif;text-anchor:start;fill:#000000;stroke-width:0.50220263"
+       style="font-style:normal;font-weight:normal;font-size:3.04584px;font-family:sans-serif;text-anchor:start;fill:#000000;stroke-width:0.502203"
        font-size="16.9333"
-       transform="scale(1.0008149,0.99918573)">
-      <tspan
+       transform="scale(1.0008149,0.99918573)"><tspan
          id="tspan65673"
          y="72.127548"
          x="29.313465"
-         style="stroke-width:0.50220263">X</tspan>
-    </text>
+         style="stroke-width:0.502203">X</tspan></text>
     <text
        id="text65679"
        y="53.18008"
        x="9.71558"
-       style="font-style:normal;font-weight:normal;font-size:3.04584408px;font-family:sans-serif;text-anchor:start;fill:#000000;stroke-width:0.50220263"
+       style="font-style:normal;font-weight:normal;font-size:3.04584px;font-family:sans-serif;text-anchor:start;fill:#000000;stroke-width:0.502203"
        font-size="16.9333"
-       transform="scale(1.0008149,0.99918573)">
-      <tspan
+       transform="scale(1.0008149,0.99918573)"><tspan
          id="tspan65677"
          y="53.18008"
          x="9.71558"
-         style="stroke-width:0.50220263">Y</tspan>
-    </text>
+         style="stroke-width:0.502203">Y</tspan></text>
     <image
        inkscape:transform-center-y="18.449331"
        inkscape:transform-center-x="5.496893"
