@@ -617,9 +617,9 @@ export function VisitorLocationMap() {
             Visitor map
           </Text>
           <Text variant="body-default-s" onBackground="neutral-strong">
-            {hasVisitorStorage && totalVisits > 0
+            {totalVisits > 0
               ? `${totalVisits} visits from ${locations.length} places`
-              : status}
+              : "Recent visitor cities and countries"}
           </Text>
         </Column>
       </Row>
