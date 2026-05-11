@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Column, IconButton, Meta, RevealFx, Schema } from "@once-ui-system/core";
 
 import { FooterContact } from "@/components";
+import { VisitorLocationMap } from "@/components/VisitorLocationMap";
 import { Projects } from "@/components/work/Projects";
 import { about, baseURL, home, person, social } from "@/resources";
 import { withBasePath } from "@/utils/paths";
@@ -243,6 +244,12 @@ export default function Home() {
             </Link>
           </div>
           <Projects />
+        </section>
+      </RevealFx>
+
+      <RevealFx translateY={12} delay={0.3}>
+        <section className={`${styles.section} ${styles.visitorMapSection}`}>
+          <VisitorLocationMap />
         </section>
       </RevealFx>
     </Column>

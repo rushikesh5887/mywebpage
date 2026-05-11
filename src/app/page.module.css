@@ -11,6 +11,11 @@
   width: 100%;
 }
 
+.visitorMapSection {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .heroSection {
   position: relative;
   overflow: visible;
