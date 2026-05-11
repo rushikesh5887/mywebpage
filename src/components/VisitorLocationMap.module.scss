@@ -10,53 +10,37 @@
     min-height: var(--static-space-48);
 }
 
-.locationPrivacy {
-    padding: var(--static-space-4) var(--static-space-8);
-    border: 1px solid var(--neutral-alpha-weak);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--neutral-alpha-weak) 36%, transparent);
-    white-space: nowrap;
-}
-
-.locationPrivacyError {
-    border-color: var(--neutral-alpha-medium);
-}
-
 .locationMapFrame {
     position: relative;
     height: 12rem;
     overflow: hidden;
     border: 1px solid var(--neutral-alpha-weak);
     border-radius: 8px;
+    background: color-mix(in srgb, var(--page-background) 86%, var(--neutral-alpha-weak));
+}
+
+.locationTileMap {
+    position: absolute;
+    inset: 0;
+}
+
+.locationMapFallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background:
         radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--brand-alpha-weak) 28%, transparent), transparent 58%),
         color-mix(in srgb, var(--page-background) 86%, var(--neutral-alpha-weak));
 }
 
-.locationMapPreview {
-    position: absolute;
-    inset: 0;
+.visitorMarkerWrapper {
+    background: transparent;
+    border: 0;
 }
 
-.locationMapPreview svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.locationMapGrid {
-    fill: none;
-    stroke: var(--neutral-alpha-weak);
-    stroke-width: 1;
-}
-
-.locationMapLand {
-    fill: color-mix(in srgb, var(--brand-alpha-medium) 35%, var(--neutral-alpha-medium));
-    stroke: var(--neutral-alpha-medium);
-    stroke-width: 1;
-}
-
-.visitorMarker {
+.visitorMarkerCount {
     position: absolute;
     display: grid;
     place-items: center;
@@ -70,22 +54,17 @@
     box-shadow:
         0 0 0 1px var(--brand-alpha-medium),
         0 8px 22px color-mix(in srgb, var(--brand-background-strong) 30%, transparent);
-    transform: translate(-50%, -50%);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
 }
 
-.visitorMarker::before {
+.visitorMarkerCount::before {
     content: "";
     position: absolute;
     inset: -0.45rem;
     border: 1px solid var(--brand-alpha-medium);
     border-radius: 999px;
-}
-
-.visitorMarker span {
-    position: relative;
-    font-size: 0.68rem;
-    font-weight: 700;
-    line-height: 1;
 }
 
 .locationList {
@@ -95,6 +74,9 @@
 }
 
 .locationItem {
+    display: flex;
+    flex-direction: column;
+    gap: var(--static-space-2);
     min-width: 0;
     padding: var(--static-space-8);
     border: 1px solid var(--neutral-alpha-weak);
@@ -114,4 +96,33 @@
     .locationList {
         grid-template-columns: 1fr;
     }
+}
+
+.locationMapFrame :global(.leaflet-container) {
+    width: 100%;
+    height: 100%;
+    font: inherit;
+}
+
+.locationMapFrame :global(.leaflet-control-attribution) {
+    background: color-mix(in srgb, var(--surface-background) 90%, transparent);
+    color: var(--neutral-on-background-weak);
+}
+
+.locationMapFrame :global(.leaflet-control-attribution a) {
+    color: inherit;
+}
+
+.locationMapFrame :global(.leaflet-control-zoom a) {
+    color: var(--neutral-on-background-strong);
+}
+
+.locationMapFrame :global(.leaflet-popup-content-wrapper) {
+    border-radius: 8px;
+    background: var(--surface-background);
+    color: var(--neutral-on-background-strong);
+}
+
+.locationMapFrame :global(.leaflet-popup-tip) {
+    background: var(--surface-background);
 }

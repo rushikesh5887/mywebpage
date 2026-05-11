@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import type { CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { Column, Row, Text } from "@once-ui-system/core";
 import styles from "./VisitorLocationMap.module.scss";
@@ -25,15 +24,154 @@ type IpLookupResponse = {
   city?: string;
   country?: string;
   country_name?: string;
+  error?: boolean;
   latitude?: number | string;
+  loc?: string;
   longitude?: number | string;
+  success?: boolean;
 };
+
+type LeafletLike = {
+  divIcon: (options: { className?: string; html: string; iconSize: [number, number] }) => unknown;
+  latLngBounds: (points: [number, number][]) => {
+    pad: (ratio: number) => unknown;
+  };
+  layerGroup: () => {
+    addTo: (map: LeafletMapLike) => LeafletLayerGroupLike;
+  };
+  map: (
+    element: HTMLDivElement,
+    options: {
+      attributionControl: boolean;
+      scrollWheelZoom: boolean;
+      worldCopyJump: boolean;
+      zoomControl: boolean;
+    },
+  ) => LeafletMapLike;
+  marker: (
+    position: [number, number],
+    options: {
+      icon: unknown;
+      title: string;
+    },
+  ) => {
+    addTo: (layer: LeafletLayerGroupLike) => {
+      bindPopup: (content: string) => void;
+    };
+  };
+  tileLayer: (
+    url: string,
+    options: {
+      attribution: string;
+      maxZoom: number;
+      minZoom: number;
+    },
+  ) => {
+    addTo: (map: LeafletMapLike) => void;
+  };
+};
+
+type LeafletLayerGroupLike = {
+  clearLayers: () => void;
+  remove: () => void;
+};
+
+type LeafletMapLike = {
+  attributionControl?: {
+    setPrefix: (prefix: string | false) => void;
+  };
+  fitBounds: (bounds: unknown, options?: { maxZoom?: number }) => void;
+  invalidateSize: () => void;
+  remove: () => void;
+  setView: (center: [number, number], zoom: number) => void;
+};
+
+declare global {
+  interface Window {
+    L?: LeafletLike;
+    __leafletPromise?: Promise<LeafletLike>;
+  }
+}
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const hasVisitorStorage = Boolean(supabaseUrl && supabaseAnonKey);
 const recordIntervalMs = 24 * 60 * 60 * 1000;
 const recordStorageKey = "portfolio-visitor-city-recorded-at";
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function ensureLeafletStylesheet() {
+  const existingStylesheet = document.querySelector('link[data-visitor-map-leaflet="true"]');
+
+  if (existingStylesheet) {
+    return;
+  }
+
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+  link.setAttribute("data-visitor-map-leaflet", "true");
+  document.head.append(link);
+}
+
+function loadLeafletScript() {
+  if (window.L) {
+    return Promise.resolve(window.L);
+  }
+
+  if (window.__leafletPromise) {
+    return window.__leafletPromise;
+  }
+
+  window.__leafletPromise = new Promise<LeafletLike>((resolve, reject) => {
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      'script[data-visitor-map-leaflet="true"]',
+    );
+
+    if (existingScript) {
+      existingScript.addEventListener("load", () => {
+        if (window.L) {
+          resolve(window.L);
+          return;
+        }
+
+        reject(new Error("Leaflet did not load"));
+      });
+      existingScript.addEventListener("error", () => reject(new Error("Leaflet failed to load")));
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.async = true;
+    script.setAttribute("data-visitor-map-leaflet", "true");
+    script.onload = () => {
+      if (window.L) {
+        resolve(window.L);
+        return;
+      }
+
+      reject(new Error("Leaflet did not load"));
+    };
+    script.onerror = () => reject(new Error("Leaflet failed to load"));
+    document.body.append(script);
+  });
+
+  return window.__leafletPromise;
+}
+
+async function loadLeaflet() {
+  ensureLeafletStylesheet();
+  return loadLeafletScript();
+}
 
 function getSupabaseHeaders() {
   return {
@@ -52,11 +190,35 @@ function normalizeNumber(value: number | string | null | undefined): number | nu
   return Number.isFinite(numberValue) ? numberValue : null;
 }
 
+function normalizeCoordinatesFromLoc(value: string | undefined) {
+  if (!value) {
+    return { latitude: null, longitude: null };
+  }
+
+  const [latitude, longitude] = value.split(",").map((coordinate) => normalizeNumber(coordinate));
+
+  return {
+    latitude,
+    longitude,
+  };
+}
+
+function isKnownLocation(city: string | undefined, country: string | undefined) {
+  if (!city || !country) {
+    return false;
+  }
+
+  const normalizedCity = city.trim().toLowerCase();
+  const normalizedCountry = country.trim().toLowerCase();
+
+  return normalizedCity !== "unknown city" && normalizedCountry !== "unknown country";
+}
+
 function normalizeVisitorCity(location: Partial<VisitorCity>): VisitorCity | null {
   const city = location.city?.trim();
   const country = location.country?.trim();
 
-  if (!city || !country) {
+  if (!city || !country || !isKnownLocation(city, country)) {
     return null;
   }
 
@@ -133,22 +295,87 @@ async function fetchVisitorCities(): Promise<VisitorCity[]> {
 }
 
 async function lookupVisitorCity(): Promise<VisitorCity | null> {
-  const response = await fetch("https://ipapi.co/json/");
+  const providers = [
+    {
+      url: "https://get.geojs.io/v1/ip/geo.json",
+      parse: (data: IpLookupResponse) => ({
+        city: data.city,
+        country: data.country,
+        latitude: normalizeNumber(data.latitude),
+        longitude: normalizeNumber(data.longitude),
+      }),
+    },
+    {
+      url: "https://ipwhois.app/json/",
+      parse: (data: IpLookupResponse) => ({
+        city: data.city,
+        country: data.country,
+        latitude: normalizeNumber(data.latitude),
+        longitude: normalizeNumber(data.longitude),
+      }),
+    },
+    {
+      url: "https://api.ip.sb/geoip",
+      parse: (data: IpLookupResponse) => ({
+        city: data.city,
+        country: data.country,
+        latitude: normalizeNumber(data.latitude),
+        longitude: normalizeNumber(data.longitude),
+      }),
+    },
+    {
+      url: "https://ipinfo.io/json",
+      parse: (data: IpLookupResponse) => {
+        const coordinates = normalizeCoordinatesFromLoc(data.loc);
 
-  if (!response.ok) {
-    return null;
+        return {
+          city: data.city,
+          country: data.country,
+          latitude: coordinates.latitude,
+          longitude: coordinates.longitude,
+        };
+      },
+    },
+    {
+      url: "https://ipapi.co/json/",
+      parse: (data: IpLookupResponse) => ({
+        city: data.city,
+        country: data.country_name ?? data.country,
+        latitude: normalizeNumber(data.latitude),
+        longitude: normalizeNumber(data.longitude),
+      }),
+    },
+  ];
+
+  for (const provider of providers) {
+    try {
+      const response = await fetch(provider.url);
+
+      if (!response.ok) {
+        continue;
+      }
+
+      const data = (await response.json()) as IpLookupResponse;
+
+      if (data.error || data.success === false) {
+        continue;
+      }
+
+      const location = provider.parse(data);
+      const visitorCity = normalizeVisitorCity({
+        ...location,
+        visit_count: 1,
+      });
+
+      if (visitorCity) {
+        return visitorCity;
+      }
+    } catch {
+      continue;
+    }
   }
 
-  const data = (await response.json()) as IpLookupResponse;
-  const country = data.country_name ?? data.country;
-
-  return normalizeVisitorCity({
-    city: data.city,
-    country,
-    latitude: normalizeNumber(data.latitude),
-    longitude: normalizeNumber(data.longitude),
-    visit_count: 1,
-  });
+  return null;
 }
 
 async function recordVisitorCity(location: VisitorCity) {
@@ -204,22 +431,16 @@ function rememberRecordedVisit() {
   }
 }
 
-function getMarkerStyle(location: VisitorCity): CSSProperties {
-  const longitude = location.longitude ?? 0;
-  const latitude = location.latitude ?? 0;
-
-  return {
-    left: `${((longitude + 180) / 360) * 100}%`,
-    top: `${((90 - latitude) / 180) * 100}%`,
-  };
-}
-
 export function VisitorLocationMap() {
   const [locations, setLocations] = useState<VisitorCity[]>([]);
   const [status, setStatus] = useState(
     hasVisitorStorage ? "Loading visitor cities" : "Storage setup needed",
   );
   const [hasError, setHasError] = useState(false);
+  const [isMapReady, setIsMapReady] = useState(false);
+  const mapContainerRef = useRef<HTMLDivElement | null>(null);
+  const mapInstanceRef = useRef<LeafletMapLike | null>(null);
+  const markerLayerRef = useRef<LeafletLayerGroupLike | null>(null);
 
   useEffect(() => {
     if (!hasVisitorStorage) {
@@ -285,6 +506,100 @@ export function VisitorLocationMap() {
     [locations],
   );
 
+  useEffect(() => {
+    let isMounted = true;
+
+    async function renderTileMap() {
+      if (!mapContainerRef.current) {
+        return;
+      }
+
+      try {
+        const L = await loadLeaflet();
+
+        if (!isMounted || !mapContainerRef.current) {
+          return;
+        }
+
+        if (!mapInstanceRef.current) {
+          mapInstanceRef.current = L.map(mapContainerRef.current, {
+            attributionControl: true,
+            scrollWheelZoom: false,
+            worldCopyJump: true,
+            zoomControl: true,
+          });
+
+          mapInstanceRef.current.attributionControl?.setPrefix(false);
+
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "&copy; OpenStreetMap contributors",
+            maxZoom: 7,
+            minZoom: 1,
+          }).addTo(mapInstanceRef.current);
+        }
+
+        if (markerLayerRef.current) {
+          markerLayerRef.current.remove();
+        }
+
+        markerLayerRef.current = L.layerGroup().addTo(mapInstanceRef.current);
+        const markerLayer = markerLayerRef.current;
+
+        const markerPoints: [number, number][] = [];
+
+        locationsWithCoordinates.forEach((location) => {
+          if (location.latitude === null || location.longitude === null) {
+            return;
+          }
+
+          markerPoints.push([location.latitude, location.longitude]);
+
+          const marker = L.marker([location.latitude, location.longitude], {
+            icon: L.divIcon({
+              className: styles.visitorMarkerWrapper,
+              html: `<span class="${styles.visitorMarkerCount}">${location.visit_count}</span>`,
+              iconSize: [34, 34],
+            }),
+            title: `${location.city}, ${location.country}: ${location.visit_count} visits`,
+          }).addTo(markerLayer);
+
+          marker.bindPopup(
+            `<strong>${escapeHtml(location.city)}, ${escapeHtml(location.country)}</strong><br />${location.visit_count} visit${location.visit_count === 1 ? "" : "s"}`,
+          );
+        });
+
+        if (markerPoints.length > 0) {
+          mapInstanceRef.current.fitBounds(L.latLngBounds(markerPoints).pad(0.4), {
+            maxZoom: 4,
+          });
+        } else {
+          mapInstanceRef.current.setView([20, 0], 1);
+        }
+
+        mapInstanceRef.current.invalidateSize();
+        setIsMapReady(true);
+      } catch {
+        if (isMounted) {
+          setHasError(true);
+          setIsMapReady(false);
+        }
+      }
+    }
+
+    renderTileMap();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [locationsWithCoordinates]);
+
+  useEffect(() => {
+    return () => {
+      markerLayerRef.current?.remove();
+      mapInstanceRef.current?.remove();
+    };
+  }, []);
+
   const topLocations = locations.slice(0, 6);
 
   return (
@@ -307,48 +622,17 @@ export function VisitorLocationMap() {
               : status}
           </Text>
         </Column>
-        <Text
-          className={`${styles.locationPrivacy} ${hasError ? styles.locationPrivacyError : ""}`}
-          variant="label-default-s"
-          onBackground="neutral-weak"
-        >
-          City and country only
-        </Text>
       </Row>
 
       <div className={styles.locationMapFrame}>
-        <div className={styles.locationMapPreview} aria-hidden="true">
-          <svg viewBox="0 0 640 260" preserveAspectRatio="none">
-            <path className={styles.locationMapGrid} d="M0 65H640M0 130H640M0 195H640" />
-            <path
-              className={styles.locationMapGrid}
-              d="M107 0V260M213 0V260M320 0V260M427 0V260M533 0V260"
-            />
-            <path
-              className={styles.locationMapLand}
-              d="M48 76c28-30 82-43 126-32 36 9 63 34 65 68 2 30-21 52-49 60-25 7-35 21-32 46 4 29-27 44-56 29-30-16-27-44-49-58-33-21-35-82-5-113z"
-            />
-            <path
-              className={styles.locationMapLand}
-              d="M233 66c37-22 91-23 130-7 32 14 48 42 38 73-8 25 4 40 30 47 39 12 73 8 104 29 31 20 38 52 13 73-20 17-53 15-77 3-26-13-52-6-77 4-34 14-68 6-86-21-13-19-10-42 3-63 14-22 8-39-22-51-33-13-64-26-71-54-3-13 2-24 15-33z"
-            />
-            <path
-              className={styles.locationMapLand}
-              d="M483 71c31-18 79-21 107-3 24 15 29 42 14 66-12 19-6 35 11 49 19 16 22 43 3 60-20 18-52 14-75-2-22-15-43-10-68-16-35-8-51-41-38-72 10-24 30-38 46-82z"
-            />
-          </svg>
-        </div>
-
-        {locationsWithCoordinates.map((location) => (
-          <span
-            key={`${location.city}-${location.country}`}
-            className={styles.visitorMarker}
-            style={getMarkerStyle(location)}
-            title={`${location.city}, ${location.country}: ${location.visit_count} visits`}
-          >
-            <span>{location.visit_count}</span>
-          </span>
-        ))}
+        <div ref={mapContainerRef} className={styles.locationTileMap} />
+        {!isMapReady && (
+          <div className={styles.locationMapFallback}>
+            <Text variant="body-default-xs" onBackground="neutral-weak">
+              Loading map tiles
+            </Text>
+          </div>
+        )}
       </div>
 
       <div className={styles.locationList}>

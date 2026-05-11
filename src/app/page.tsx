@@ -23,28 +23,29 @@ export async function generateMetadata() {
 
 const socialLinks = social.filter((item) => item.essential && item.name !== "Email");
 const resumeLink = withBasePath("/documents/cv.pdf");
-const heroHeadline = "Applied data scientist for mobility, urban systems, and decision-ready analytics.";
+const heroHeadline =
+  "Data scientist building geospatial, mobility, and urban analytics for planning and operations.";
 
 const impactMetrics = [
   {
     value: "45",
-    label: "Cities benchmarked",
-    detail: "Comparative emissions modeling across diverse urban contexts.",
+    label: "Cities compared",
+    detail: "Urban emissions and mobility benchmarking across global city contexts.",
   },
   {
     value: "10M+",
-    label: "Spatial records handled",
-    detail: "Large-scale geospatial engineering and analytics workflows.",
+    label: "Spatial records processed",
+    detail: "Large-scale geospatial engineering, cleaning, and analysis workflows.",
   },
   {
     value: "40%",
-    label: "Workflow efficiency gain",
-    detail: "Automation across Python and R workflows that reduced manual effort.",
+    label: "Workflow time reduced",
+    detail: "Python and R automation that cut repeated manual analysis work.",
   },
   {
-    value: "4.8/5",
-    label: "Teaching feedback",
-    detail: "Clear communication and technical mentoring alongside analytical delivery.",
+    value: "3",
+    label: "Role tracks covered",
+    detail: "Delivery, research, and teaching experience brought into one applied profile.",
   },
 ];
 
@@ -52,24 +53,24 @@ const focusAreas = [
   {
     title: "Build Reliable Analytical Workflows",
     description:
-      "I turn raw traffic, travel, and urban data into structured pipelines teams can trust and reuse.",
+      "I turn messy traffic, travel, and urban data into structured workflows that teams can trust, repeat, and extend.",
   },
   {
     title: "Model Spatial and Mobility Systems",
     description:
-      "I combine geospatial processing, networks, and city-scale modeling to explain emissions, movement, and operations.",
+      "I combine geospatial processing, transport data, and city-scale modeling to explain emissions, movement, and operations.",
   },
   {
     title: "Translate Analysis Into Decisions",
     description:
-      "I package analysis into dashboards, models, and evidence that planners and operating teams can act on.",
+      "I package results into models, dashboards, and evidence that planners, operators, and analysts can act on.",
   },
 ];
 
 const caseStudySignals = [
-  "These case studies show how I define the problem, build the workflow, and deliver a usable result.",
-  "The strongest examples combine geospatial engineering, modeling, and decision support.",
-  "Together they show applied industry value, not only research depth.",
+  "Each project shows the problem, the workflow I built, and the decision value it created.",
+  "The strongest examples combine geospatial engineering, modeling, automation, and decision support.",
+  "Together they position me for data science, geospatial analytics, and mobility-focused roles.",
 ];
 
 const experienceHighlights = about.work.experiences.slice(0, 3).map((experience) => ({
@@ -101,12 +102,12 @@ export default function Home() {
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
               <p className={styles.eyebrow}>
-                Applied Data Scientist | Geospatial Analytics | Mobility Systems
+                Data Scientist | Geospatial Analytics | Mobility and Urban Systems
               </p>
               <h1 className={styles.heroTitle}>{heroHeadline}</h1>
               <p className={styles.heroText}>
-                I build data pipelines, predictive models, and geospatial workflows that help teams
-                turn complex real-world data into decisions they can use with confidence.
+                I help teams turn complex spatial, transport, and urban data into usable models,
+                reliable workflows, and decision support for planning, operations, and policy.
               </p>
 
               <div className={styles.heroActions}>
@@ -125,7 +126,7 @@ export default function Home() {
               <div className={styles.impactPanel}>
                 <div className={styles.impactHeader}>
                   <p className={styles.cardKicker}>Selected Impact</p>
-                  <span>Fast proof of scale, delivery, and communication range.</span>
+                  <span>Quick evidence of scale, applied delivery, and recruiter role fit.</span>
                 </div>
                 <div className={styles.impactGrid}>
                   {impactMetrics.map((item) => (
@@ -156,8 +157,8 @@ export default function Home() {
                   <p className={styles.profileLabel}>Based in {person.location}</p>
                   <h2>{person.name}</h2>
                   <p className={styles.profileSummary}>
-                    Applied data scientist focused on mobility, geospatial analytics, and urban
-                    systems with experience spanning delivery, research, and teaching.
+                    Applied data scientist with experience across industry delivery, research, and
+                    teaching, focused on geospatial analytics, mobility systems, and urban data.
                   </p>
                   <div className={styles.profileContactRow}>
                     {socialLinks.map((item) => (
@@ -208,10 +209,10 @@ export default function Home() {
         <section className={styles.section}>
           <div className={styles.sectionIntro}>
             <p className={styles.sectionEyebrow}>What I Bring</p>
-            <h2>Technical depth focused on useful outcomes.</h2>
+            <h2>Technical depth that stays tied to practical outcomes.</h2>
             <p>
-              I work best where data is messy, context matters, and the output needs to be both
-              rigorous and practical.
+              I do my best work where the data is messy, the context matters, and the final output
+              needs to be rigorous enough for analysts and useful enough for decision-makers.
             </p>
           </div>
 
@@ -232,7 +233,7 @@ export default function Home() {
           <div className={styles.sectionHeader}>
             <div>
               <p className={styles.sectionEyebrow}>Applied Work Highlights</p>
-              <h2>Projects that show how I turn complex data into usable decisions.</h2>
+              <h2>Projects that show how I turn complex data into usable analytical products.</h2>
               <div className={styles.caseStudyList}>
                 {caseStudySignals.map((item) => (
                   <p key={item}>{item}</p>
