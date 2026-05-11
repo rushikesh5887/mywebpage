@@ -621,23 +621,17 @@ export function VisitorLocationMap() {
       </div>
 
       <div className={styles.locationList}>
-        {topLocations.length > 0 ? (
-          topLocations.map((location) => (
-            <div key={`${location.city}-${location.country}`} className={styles.locationItem}>
-              <Text variant="label-default-s" onBackground="neutral-strong">
-                {location.city}
-              </Text>
-              <Text variant="body-default-xs" onBackground="neutral-weak">
-                {location.country} · {location.visit_count} visit
-                {location.visit_count === 1 ? "" : "s"}
-              </Text>
-            </div>
-          ))
-        ) : (
-          <Text variant="body-default-xs" onBackground="neutral-weak">
-            Visitor locations will appear here as people visit the site.
-          </Text>
-        )}
+        {topLocations.map((location) => (
+          <div key={`${location.city}-${location.country}`} className={styles.locationItem}>
+            <Text variant="label-default-s" onBackground="neutral-strong">
+              {location.city}
+            </Text>
+            <Text variant="body-default-xs" onBackground="neutral-weak">
+              {location.country} · {location.visit_count} visit
+              {location.visit_count === 1 ? "" : "s"}
+            </Text>
+          </div>
+        ))}
       </div>
     </Column>
   );
