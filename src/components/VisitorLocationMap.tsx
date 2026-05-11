@@ -433,9 +433,6 @@ function rememberRecordedVisit() {
 
 export function VisitorLocationMap() {
   const [locations, setLocations] = useState<VisitorCity[]>([]);
-  const [status, setStatus] = useState(
-    hasVisitorStorage ? "Loading visitor cities" : "Storage setup needed",
-  );
   const [hasError, setHasError] = useState(false);
   const [isMapReady, setIsMapReady] = useState(false);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -472,16 +469,10 @@ export function VisitorLocationMap() {
 
         if (isMounted) {
           setLocations(updatedLocations);
-          setStatus(
-            updatedLocations.length
-              ? "City and country visits counted from setup date"
-              : "Waiting for first city visit",
-          );
         }
       } catch {
         if (isMounted) {
           setHasError(true);
-          setStatus("Visitor city map unavailable");
         }
       }
     }
@@ -526,7 +517,7 @@ export function VisitorLocationMap() {
             attributionControl: true,
             scrollWheelZoom: false,
             worldCopyJump: true,
-            zoomControl: true,
+            zoomControl: false,
           });
 
           mapInstanceRef.current.attributionControl?.setPrefix(false);
@@ -626,13 +617,7 @@ export function VisitorLocationMap() {
 
       <div className={styles.locationMapFrame}>
         <div ref={mapContainerRef} className={styles.locationTileMap} />
-        {!isMapReady && (
-          <div className={styles.locationMapFallback}>
-            <Text variant="body-default-xs" onBackground="neutral-weak">
-              Loading map tiles
-            </Text>
-          </div>
-        )}
+        {!isMapReady && <div className={styles.locationMapFallback} aria-hidden="true" />}
       </div>
 
       <div className={styles.locationList}>
@@ -650,9 +635,7 @@ export function VisitorLocationMap() {
           ))
         ) : (
           <Text variant="body-default-xs" onBackground="neutral-weak">
-            {hasVisitorStorage
-              ? "New visitor cities will appear here after the first recorded visit."
-              : "Connect Supabase to start collecting future visitor cities."}
+            Visitor locations will appear here as people visit the site.
           </Text>
         )}
       </div>
