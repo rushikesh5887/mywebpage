@@ -24,7 +24,7 @@ const routes: RoutesConfig = {
   "/teaching": true,
   "/blog": false,
   "/gallery": false,
-  "/travel": false,
+  "/travel": true,
 };
 
 const display: DisplayConfig = {

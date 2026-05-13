@@ -35,6 +35,43 @@
         color-mix(in srgb, var(--page-background) 86%, var(--neutral-alpha-weak));
 }
 
+.zoomControls {
+    position: absolute;
+    top: var(--static-space-8);
+    right: var(--static-space-8);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    z-index: 2;
+    overflow: hidden;
+    border: 1px solid var(--neutral-alpha-medium);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--neutral-alpha-medium) 20%, transparent);
+}
+
+.zoomButton {
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    background: color-mix(in srgb, var(--surface-background) 92%, transparent);
+    color: var(--neutral-on-background-strong);
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.zoomButton:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--brand-background-weak) 40%, var(--surface-background));
+}
+
+.zoomButton:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
 .visitorMarkerWrapper {
     background: transparent;
     border: 0;

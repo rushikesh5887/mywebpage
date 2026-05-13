@@ -82,9 +82,35 @@
   line-height: 1.45;
 }
 
+.contactSection {
+  display: grid;
+  gap: 1rem;
+  padding: 1.2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--neutral-alpha-medium);
+  background: radial-gradient(
+      circle at top left,
+      color-mix(in srgb, var(--brand-background-strong) 16%, transparent),
+      transparent 40%
+    ),
+    linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--surface-background) 92%, var(--brand-background-weak) 8%),
+      color-mix(in srgb, var(--page-background) 90%, var(--accent-background-weak) 10%)
+    );
+}
+
+.contactIntro {
+  max-width: 40rem;
+}
+
 @media (max-width: 768px) {
   .lookForSection {
     padding: 1.1rem;
+  }
+
+  .contactSection {
+    padding: 1rem;
   }
 
   .signalGrid {

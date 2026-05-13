@@ -114,6 +114,9 @@ export default function Home() {
                 <Link href="/work" className={`${styles.primaryButton} ${styles.workButton}`}>
                   View Selected Work
                 </Link>
+                <a href={`mailto:${person.email}`} className={`${styles.secondaryButton} ${styles.cvButton}`}>
+                  Contact Me
+                </a>
                 <a
                   href={resumeLink}
                   className={`${styles.secondaryButton} ${styles.cvButton}`}
@@ -251,6 +254,32 @@ export default function Home() {
       <RevealFx translateY={12} delay={0.3}>
         <section className={`${styles.section} ${styles.visitorMapSection}`}>
           <VisitorLocationMap />
+        </section>
+      </RevealFx>
+
+      <RevealFx translateY={12} delay={0.35}>
+        <section className={styles.section}>
+          <article className={styles.ctaCard}>
+            <p className={styles.cardKicker}>Open to Opportunities</p>
+            <h2>Let&apos;s build useful data products for mobility and urban systems.</h2>
+            <p>
+              I am open to Data Scientist, Geospatial Analytics, and Mobility Analytics roles where
+              I can combine rigorous modeling, practical delivery, and real-world decision impact.
+            </p>
+            <div className={styles.heroActions}>
+              <a href={`mailto:${person.email}`} className={`${styles.primaryButton} ${styles.workButton}`}>
+                Contact Me
+              </a>
+              <Link href="/about" className={`${styles.secondaryButton} ${styles.cvButton}`}>
+                More About Me
+              </Link>
+            </div>
+            <div className={styles.ctaList}>
+              <span>Full-time roles</span>
+              <span>Research collaborations</span>
+              <span>Consulting projects</span>
+            </div>
+          </article>
         </section>
       </RevealFx>
     </Column>

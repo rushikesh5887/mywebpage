@@ -125,6 +125,32 @@ export default function Work() {
       </section>
 
       <Projects />
+
+      <section className={styles.contactSection}>
+        <Column gap="12" className={styles.contactIntro}>
+          <Text variant="label-strong-s" onBackground="brand-weak" className={styles.eyebrow}>
+            Open to Opportunities
+          </Text>
+          <Heading as="h2" variant="heading-strong-l">
+            Interested in working together?
+          </Heading>
+          <Text variant="body-default-s" onBackground="neutral-weak" className={styles.introText}>
+            I am open to data science, geospatial analytics, and mobility-focused roles, along
+            with selected research and consulting collaborations.
+          </Text>
+        </Column>
+        <Row gap="12" wrap>
+          <Button href={`mailto:${person.email}`} variant="primary" prefixIcon="email">
+            Contact Me
+          </Button>
+          <Button href={withBasePath("/documents/cv.pdf")} download variant="secondary" prefixIcon="download">
+            Download CV
+          </Button>
+          <Button href="/about" variant="secondary" prefixIcon="person">
+            More About Me
+          </Button>
+        </Row>
+      </section>
     </Column>
   );
 }

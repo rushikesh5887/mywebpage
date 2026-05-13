@@ -84,6 +84,8 @@ type LeafletMapLike = {
   invalidateSize: () => void;
   remove: () => void;
   setView: (center: [number, number], zoom: number) => void;
+  zoomIn: () => void;
+  zoomOut: () => void;
 };
 
 declare global {
@@ -497,6 +499,14 @@ export function VisitorLocationMap() {
     [locations],
   );
 
+  const handleZoomIn = () => {
+    mapInstanceRef.current?.zoomIn();
+  };
+
+  const handleZoomOut = () => {
+    mapInstanceRef.current?.zoomOut();
+  };
+
   useEffect(() => {
     let isMounted = true;
 
@@ -617,6 +627,26 @@ export function VisitorLocationMap() {
 
       <div className={styles.locationMapFrame}>
         <div ref={mapContainerRef} className={styles.locationTileMap} />
+        <div className={styles.zoomControls}>
+          <button
+            type="button"
+            className={styles.zoomButton}
+            onClick={handleZoomIn}
+            aria-label="Zoom in visitor map"
+            disabled={!isMapReady}
+          >
+            +
+          </button>
+          <button
+            type="button"
+            className={styles.zoomButton}
+            onClick={handleZoomOut}
+            aria-label="Zoom out visitor map"
+            disabled={!isMapReady}
+          >
+            -
+          </button>
+        </div>
         {!isMapReady && <div className={styles.locationMapFallback} aria-hidden="true" />}
       </div>
 
