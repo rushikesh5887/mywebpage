@@ -1,0 +1,725 @@
+.page {
+  width: 100%;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--neutral-alpha-medium) 75%, transparent);
+  border-radius: 32px;
+  padding: 2rem;
+  background: radial-gradient(
+      circle at top left,
+      color-mix(in srgb, #f59e0b 18%, transparent),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at top right,
+      color-mix(in srgb, #2563eb 18%, transparent),
+      transparent 34%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--surface-background) 92%, #fff7ed 8%),
+      color-mix(in srgb, var(--page-background) 92%, #eff6ff 8%)
+    );
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -5% -32% auto;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, #f97316 20%, transparent);
+  filter: blur(16px);
+}
+
+.heroText {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--neutral-on-background-weak);
+}
+
+.heroTitle {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.statCard {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1rem 1.1rem;
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--page-background) 76%, transparent);
+  border: 1px solid color-mix(in srgb, var(--neutral-alpha-medium) 72%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.statCard strong {
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.statCard span {
+  color: var(--neutral-on-background-weak);
+  font-size: 0.92rem;
+}
+
+.travelStage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(21rem, 0.9fr);
+  gap: 1.15rem;
+  align-items: start;
+}
+
+.mapPanel,
+.detailPanel,
+.listPanel,
+.summaryPanel,
+.lensCountryCard,
+.photoCard {
+  border: 1px solid color-mix(in srgb, var(--neutral-alpha-medium) 75%, transparent);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--surface-background) 94%, transparent);
+}
+
+.mapPanel {
+  padding: 1rem;
+}
+
+.mapHeader {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sectionHeader {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sectionHeader h2,
+.detailPanel h3,
+.photoCard h3 {
+  margin: 0;
+}
+
+.detailMeta {
+  margin: 0;
+  color: var(--neutral-on-background-weak);
+  line-height: 1.6;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.filterButton,
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.3rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--neutral-alpha-medium) 75%, transparent);
+  background: color-mix(in srgb, var(--page-background) 85%, transparent);
+  color: var(--neutral-on-background);
+  font-size: 0.9rem;
+}
+
+.filterButton {
+  cursor: pointer;
+  transition: transform 140ms ease, background-color 140ms ease, border-color 140ms ease, color
+    140ms ease;
+}
+
+.filterButton:hover,
+.filterActive {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, #2563eb 40%, transparent);
+  background: color-mix(in srgb, #dbeafe 56%, var(--page-background));
+  color: color-mix(in srgb, var(--neutral-on-background) 85%, #1d4ed8 15%);
+}
+
+.mapFrame {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #0f172a, #10213f 44%, #12315b);
+}
+
+.mapOverlay {
+  position: absolute;
+  z-index: 2;
+  inset: 1rem 1rem auto 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.legend,
+.mapCounts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.65rem 0.8rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, #08111f 78%, transparent);
+  border: 1px solid color-mix(in srgb, white 12%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.legendLabel {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.legendItem,
+.mapCounts span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.88rem;
+}
+
+.legendSwatch,
+.rowDot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 999px;
+}
+
+.travelTileMap {
+  position: absolute;
+  inset: 0;
+}
+
+.lived {
+  background: #5eb8ff;
+}
+
+.worked {
+  background: #ff9933;
+}
+
+.visited {
+  background: #30a704;
+}
+
+.mapFallback {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      circle at 20% 20%,
+      color-mix(in srgb, #22c55e 12%, transparent),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 78% 15%,
+      color-mix(in srgb, #38bdf8 12%, transparent),
+      transparent 26%
+    ), linear-gradient(180deg, #0f172a, #10213f 44%, #12315b);
+}
+
+.sidePanel {
+  display: grid;
+  gap: 1rem;
+}
+
+.detailPanel,
+.listPanel,
+.summaryPanel {
+  padding: 1rem;
+}
+
+.detailPanel {
+  display: grid;
+  gap: 1rem;
+}
+
+.detailImageWrap {
+  position: relative;
+  min-height: 15rem;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.detailImage,
+.photoImage {
+  object-fit: cover;
+}
+
+.detailImageFallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.45rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: white;
+  background: radial-gradient(circle at 28% 22%, rgba(94, 184, 255, 0.34), transparent 30%),
+    radial-gradient(circle at 72% 76%, rgba(255, 153, 51, 0.28), transparent 32%),
+    linear-gradient(135deg, #10213f, #17324f 48%, #0f172a);
+}
+
+.detailImageFallback strong {
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.detailImageFallback span:not(.fallbackFlag) {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+}
+
+.fallbackFlag {
+  font-size: 2.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 0.4rem 1rem rgba(0, 0, 0, 0.28));
+}
+
+.detailText {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.detailTopline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.placeList {
+  display: grid;
+  gap: 0.45rem;
+  max-height: 24rem;
+  overflow: auto;
+}
+
+.placeRow {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--neutral-alpha-medium) 65%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--page-background) 86%, transparent);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.placeRow:hover,
+.placeRowActive {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, #2563eb 32%, transparent);
+  background: color-mix(in srgb, #dbeafe 38%, var(--page-background));
+}
+
+.placeRowText {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.placeRowText strong {
+  font-size: 0.96rem;
+}
+
+.placeRowText span {
+  color: var(--neutral-on-background-weak);
+  font-size: 0.85rem;
+}
+
+.countryList {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem 0.65rem;
+}
+
+.countryRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 2.75rem;
+}
+
+.countryFlagOnly {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.countryFlag {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.countryName {
+  min-width: 0;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.travelMarkerWrapper {
+  background: transparent;
+  border: 0;
+}
+
+.travelMarker {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 0 3px rgba(8, 17, 31, 0.35), 0 0 18px rgba(255, 255, 255, 0.08);
+  transition: transform 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+}
+
+.travelMarkerActive {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.08), 0 0 28px rgba(255, 255, 255, 0.22);
+}
+
+.mapFrame :global(.leaflet-container) {
+  width: 100%;
+  height: 100%;
+  font: inherit;
+}
+
+.mapFrame :global(.leaflet-control-attribution) {
+  background: color-mix(in srgb, #08111f 82%, transparent);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.mapFrame :global(.leaflet-control-attribution a) {
+  color: inherit;
+}
+
+.mapFrame :global(.leaflet-control-zoom a) {
+  color: var(--neutral-on-background-strong);
+}
+
+.mapFrame :global(.leaflet-popup-content-wrapper) {
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-background) 96%, transparent);
+  color: var(--neutral-on-background-strong);
+}
+
+.mapFrame :global(.leaflet-popup-tip) {
+  background: color-mix(in srgb, var(--surface-background) 96%, transparent);
+}
+
+.photosSection {
+  display: grid;
+  gap: 1rem;
+}
+
+.lensesSection {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.lensesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.lensBackButton {
+  min-height: 2.4rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--neutral-alpha-medium) 75%, transparent);
+  background: color-mix(in srgb, var(--page-background) 85%, transparent);
+  color: var(--neutral-on-background);
+  cursor: pointer;
+  font: inherit;
+}
+
+.lensesSelectedCountry {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.lensesSelectedCountry h3 {
+  margin: 0;
+}
+
+.lensCountryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.lensCountryCard {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.lensCountryCard:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, #2563eb 36%, transparent);
+  background: color-mix(in srgb, #dbeafe 30%, var(--surface-background));
+}
+
+.lensCountryName {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+}
+
+.lensPhotoCount {
+  color: var(--neutral-on-background-weak);
+  font-size: 0.9rem;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.photoCard {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.photoCard:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, #2563eb 36%, transparent);
+  background: color-mix(in srgb, #dbeafe 30%, var(--surface-background));
+}
+
+.photoImageWrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.lightbox {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1.5rem;
+  border: 0;
+  background: transparent;
+}
+
+.lightboxBackdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: color-mix(in srgb, #020617 78%, transparent);
+  cursor: pointer;
+}
+
+.lightboxPanel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.9rem;
+  width: min(64rem, 100%);
+  max-height: min(88vh, 54rem);
+  padding: 0.9rem;
+  border-radius: 24px;
+  border: 1px solid color-mix(in srgb, white 18%, transparent);
+  background: color-mix(in srgb, var(--surface-background) 92%, transparent);
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.42);
+}
+
+.lightboxImageWrap {
+  position: relative;
+  min-height: min(70vh, 42rem);
+  overflow: hidden;
+  border-radius: 18px;
+  background: #020617;
+}
+
+.lightboxImage {
+  object-fit: contain;
+}
+
+.lightboxButton {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, white 24%, transparent);
+  background: color-mix(in srgb, #020617 68%, transparent);
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.lightboxClose {
+  top: 1.35rem;
+  right: 1.35rem;
+}
+
+.lightboxPrevious,
+.lightboxNext {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightboxPrevious {
+  left: 1.35rem;
+}
+
+.lightboxNext {
+  right: 1.35rem;
+}
+
+.lightboxCaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--neutral-on-background);
+}
+
+.lightboxCaption span {
+  color: var(--neutral-on-background-weak);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1160px) {
+  .travelStage {
+    grid-template-columns: 1fr;
+  }
+
+  .photoGrid,
+  .lensCountryGrid,
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 840px) {
+  .mapOverlay {
+    position: static;
+    display: grid;
+    gap: 0.7rem;
+    padding: 1rem 1rem 0;
+  }
+
+  .legend,
+  .mapCounts {
+    border-radius: 20px;
+  }
+
+  .photoGrid,
+  .lensCountryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .countryList {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .lensCountryGrid,
+  .photoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .countryList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .hero,
+  .mapPanel,
+  .detailPanel,
+  .listPanel,
+  .summaryPanel,
+  .lensCountryCard,
+  .photoCard {
+    border-radius: 22px;
+  }
+
+  .hero {
+    padding: 1.35rem;
+  }
+
+  .heroTitle {
+    font-size: 2.7rem;
+  }
+
+  .stats,
+  .photoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .mapFrame {
+    aspect-ratio: 4 / 3;
+  }
+}
