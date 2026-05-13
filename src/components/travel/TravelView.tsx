@@ -44,6 +44,12 @@ const countryCodeByName: Record<string, string> = {
 };
 
 type CategoryFilter = (typeof categoryOrder)[number];
+type Wonder = {
+  name: string;
+  country: string;
+  note: string;
+  photo: TravelPhoto;
+};
 
 function toFlagEmoji(country: string) {
   const code = countryCodeByName[country];
@@ -263,6 +269,30 @@ export default function TravelView({ places, photos }: TravelViewProps) {
     ? photos.filter((photo) => photo.country === selectedLensCountry)
     : [];
   const lightboxPhoto = lightbox?.photos[lightbox.index] ?? null;
+  const wonders: Wonder[] = [
+    {
+      name: "Taj Mahal",
+      country: "India",
+      note: "Agra - one of the New Seven Wonders of the World.",
+      photo: { src: "/images/travel/Agra.webp", title: "Taj Mahal", country: "India" },
+    },
+    {
+      name: "Colosseum",
+      country: "Italy",
+      note: "Rome - iconic Roman amphitheater and global heritage landmark.",
+      photo: { src: "/images/travel/Rome.webp", title: "Colosseum, Rome", country: "Italy" },
+    },
+    {
+      name: "Leaning Tower of Pisa",
+      country: "Italy",
+      note: "Pisa - historic bell tower known worldwide for its tilt.",
+      photo: {
+        src: "/images/travel/Pisa.webp",
+        title: "Leaning Tower of Pisa",
+        country: "Italy",
+      },
+    },
+  ];
 
   useEffect(() => {
     if (!selectedPlace || !filteredPlaces.some((place) => place.name === selectedPlace.name)) {
@@ -485,7 +515,7 @@ export default function TravelView({ places, photos }: TravelViewProps) {
           <div className={styles.stats}>
             <div className={styles.statCard}>
               <strong>{createStatValue(places.length)}</strong>
-              <span>Total markers</span>
+              <span>Places</span>
             </div>
             <div className={styles.statCard}>
               <strong>{createStatValue(countries)}</strong>
@@ -619,6 +649,35 @@ export default function TravelView({ places, photos }: TravelViewProps) {
             </div>
           </div>
         </aside>
+      </section>
+
+      <section className={styles.wondersSection}>
+        <div className={styles.wondersHeader}>
+          <h2>Wonders of the world visited</h2>
+          <span className={styles.wondersCount}>3 / 7 wonders visited</span>
+        </div>
+        <div className={styles.wondersGrid}>
+          {wonders.map((wonder, wonderIndex) => (
+            <button
+              key={wonder.name}
+              type="button"
+              className={styles.wonderCard}
+              onClick={() => setLightbox({ photos: wonders.map((item) => item.photo), index: wonderIndex })}
+            >
+              <div className={styles.photoImageWrap}>
+                <Image
+                  src={withBasePath(wonder.photo.src)}
+                  alt={wonder.photo.title}
+                  fill
+                  sizes="(max-width: 1080px) 100vw, 33vw"
+                  className={styles.photoImage}
+                />
+              </div>
+              <h3>{wonder.name}</h3>
+              <p className={styles.wonderMeta}>{wonder.note}</p>
+            </button>
+          ))}
+        </div>
       </section>
 
       <section className={styles.lensesSection}>

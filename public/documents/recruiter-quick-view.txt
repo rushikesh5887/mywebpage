@@ -1,0 +1,49 @@
+RECRUITER QUICK VIEW
+Dr. Rushikesh Amrutsamanvar
+Data Scientist | Geospatial Analytics | Mobility and Urban Systems
+Location: Germany (Europe/Berlin)
+Email: rushikesh.amrut@gmail.com
+LinkedIn: https://www.linkedin.com/in/dr-rushikesh-amrutsamanvar-30849349/
+GitHub: https://github.com/rushikesh5887
+Portfolio: https://rushikesh5887.github.io/mywebpage/
+
+ROLE FIT
+- Data Scientist (Mobility / Urban Analytics)
+- Geospatial Data Scientist / Geospatial Analyst
+- Applied Research Data Scientist
+
+WHAT I DELIVER
+- End-to-end analytical workflows from messy data to decision-ready outputs
+- Geospatial data engineering and city-scale mobility analysis
+- Statistical and machine-learning models for behavior, demand, and emissions
+- Publication-ready insights, dashboards, and evidence-backed recommendations
+
+CORE TOOLS
+- Python, SQL, GeoPandas, pandas, scikit-learn
+- QGIS, OpenStreetMap, OSMnx, NetworkX
+- R, MATLAB, SPSS, Power BI
+- Git, LaTeX
+
+SELECTED IMPACT
+- Compared mobility and emissions scenarios across 45 global cities
+- Processed and integrated 10M+ geospatial records in large-scale workflows
+- Reduced recurring analysis time by approximately 40% through automation
+- Contributed to 10+ research publications and collaborative outputs
+- Improved image-based mixed-traffic extraction workflow efficiency by ~500%
+
+FLAGSHIP PROJECTS
+1) Carbon Modeling Across Global Cities
+   Focus: Scenario-based urban mobility emissions analytics and benchmarking
+2) Lateral Movement Decisions in Mixed Traffic
+   Focus: Behavioral modeling and model comparison using naturalistic traffic data
+3) Microscopic Traffic Data Extraction and Analysis
+   Focus: Image-based extraction pipeline and analytics workflow optimization
+
+COLLABORATION STRENGTHS
+- Cross-disciplinary work across data science, transport modeling, and urban systems
+- Strong communication with technical and non-technical stakeholders
+- Experience across research, teaching, and applied project delivery
+
+AVAILABILITY
+Open to full-time and selected collaboration roles in data science, geospatial analytics,
+and mobility-focused analytics.

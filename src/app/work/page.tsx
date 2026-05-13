@@ -43,6 +43,8 @@ export async function generateMetadata() {
 }
 
 export default function Work() {
+  const recruiterQuickViewLink = withBasePath("/documents/recruiter-quick-view.txt");
+
   return (
     <Column maxWidth="m" paddingTop="24" gap="40">
       <Schema
@@ -82,6 +84,9 @@ export default function Work() {
             prefixIcon="download"
           >
             Download CV
+          </Button>
+          <Button href={recruiterQuickViewLink} download variant="secondary" prefixIcon="document">
+            Recruiter Quick View
           </Button>
           <Button href={teaching.path} variant="secondary" prefixIcon="book">
             Teaching & Mentoring
@@ -145,6 +150,9 @@ export default function Work() {
           </Button>
           <Button href={withBasePath("/documents/cv.pdf")} download variant="secondary" prefixIcon="download">
             Download CV
+          </Button>
+          <Button href={recruiterQuickViewLink} download variant="secondary" prefixIcon="document">
+            Recruiter Quick View
           </Button>
           <Button href="/about" variant="secondary" prefixIcon="person">
             More About Me

@@ -451,6 +451,69 @@
   gap: 1rem;
 }
 
+.wondersSection {
+  display: grid;
+  gap: 1rem;
+}
+
+.wondersHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.wondersCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.1rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--neutral-alpha-medium) 75%, transparent);
+  background: color-mix(in srgb, var(--page-background) 85%, transparent);
+  color: var(--neutral-on-background-weak);
+  font-size: 0.86rem;
+}
+
+.wondersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.wonderCard {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--neutral-alpha-medium) 75%, transparent);
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--surface-background) 94%, transparent);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: transform 140ms ease, border-color 140ms ease, background-color 140ms ease;
+}
+
+.wonderCard:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, #2563eb 36%, transparent);
+  background: color-mix(in srgb, #dbeafe 30%, var(--surface-background));
+}
+
+.wonderCard h3 {
+  margin: 0;
+}
+
+.wonderMeta {
+  margin: 0;
+  color: var(--neutral-on-background-weak);
+  line-height: 1.55;
+  font-size: 0.9rem;
+}
+
 .lensesSection {
   display: grid;
   gap: 1rem;
@@ -656,6 +719,7 @@
 
   .photoGrid,
   .lensCountryGrid,
+  .wondersGrid,
   .stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -675,7 +739,8 @@
   }
 
   .photoGrid,
-  .lensCountryGrid {
+  .lensCountryGrid,
+  .wondersGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -686,7 +751,8 @@
 
 @media (max-width: 640px) {
   .lensCountryGrid,
-  .photoGrid {
+  .photoGrid,
+  .wondersGrid {
     grid-template-columns: 1fr;
   }
 
@@ -702,7 +768,8 @@
   .listPanel,
   .summaryPanel,
   .lensCountryCard,
-  .photoCard {
+  .photoCard,
+  .wonderCard {
     border-radius: 22px;
   }
 

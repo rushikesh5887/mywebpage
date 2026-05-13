@@ -23,6 +23,7 @@ export async function generateMetadata() {
 
 const socialLinks = social.filter((item) => item.essential && item.name !== "Email");
 const resumeLink = withBasePath("/documents/cv.pdf");
+const recruiterQuickViewLink = withBasePath("/documents/recruiter-quick-view.txt");
 const heroHeadline =
   "Data scientist building geospatial, mobility, and urban analytics for planning and operations.";
 
@@ -123,6 +124,13 @@ export default function Home() {
                   download
                 >
                   Download CV
+                </a>
+                <a
+                  href={recruiterQuickViewLink}
+                  className={`${styles.secondaryButton} ${styles.cvButton}`}
+                  download
+                >
+                  Recruiter Quick View
                 </a>
               </div>
 
