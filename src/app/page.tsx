@@ -68,10 +68,16 @@ const focusAreas = [
   },
 ];
 
+const roleFit = [
+  "Data Scientist (Mobility and Urban Analytics)",
+  "Geospatial Data Scientist / Geospatial Analyst",
+  "Applied Research Data Scientist",
+];
+
 const caseStudySignals = [
-  "Each project shows the problem, the workflow I built, and the decision value it created.",
-  "The strongest examples combine geospatial engineering, modeling, automation, and decision support.",
-  "Together they position me for data science, geospatial analytics, and mobility-focused roles.",
+  "Each project shows the problem, workflow, and decision value.",
+  "Core strengths: geospatial engineering, modeling, and automation.",
+  "Built to match data science and mobility analytics roles.",
 ];
 
 const experienceHighlights = about.work.experiences.slice(0, 3).map((experience) => ({
@@ -79,6 +85,23 @@ const experienceHighlights = about.work.experiences.slice(0, 3).map((experience)
   timeframe: experience.timeframe,
   role: experience.role,
 }));
+
+const testimonials = [
+  {
+    quote:
+      "Rushikesh contributed significantly to rapid traffic-network planning research, including carbon-emission analytics, and demonstrated strong modeling depth, emerging-method adoption, and steady professional growth.",
+    name: "Prof. Dr. S. Travis Waller",
+    role: "Chair of Transport Modelling and Simulation, TU Dresden",
+    linkedIn: "https://tu-dresden.de/bu/verkehr/ivs/tms/die-professur/inhaber-in",
+  },
+  {
+    quote:
+      "Rushikesh quickly built the knowledge needed for city-scale sustainability and carbon-sensitivity research, took ownership of topics, and brought clarity to the next steps.",
+    name: "Sai Chand, Ph.D.",
+    role: "Assistant Professor, TRIPC, IIT Delhi",
+    linkedIn: "https://tripc.iitd.ac.in/people/faculty",
+  },
+];
 
 export default function Home() {
   return (
@@ -107,9 +130,18 @@ export default function Home() {
               </p>
               <h1 className={styles.heroTitle}>{heroHeadline}</h1>
               <p className={styles.heroText}>
-                I help teams turn complex spatial, transport, and urban data into usable models,
-                reliable workflows, and decision support for planning, operations, and policy.
+                I turn complex spatial, transport, and urban data into reliable models, scalable
+                workflows, and decision-ready outputs.
               </p>
+              <div className={styles.roleFitPanel}>
+                <p className={styles.cardKicker}>Role Fit</p>
+                <div className={styles.roleFitChips}>
+                  {roleFit.map((role) => (
+                    <span key={role}>{role}</span>
+                  ))}
+                </div>
+                <p className={styles.roleFitMeta}>Open to roles in Germany and Europe (remote/hybrid/onsite).</p>
+              </div>
 
               <div className={styles.heroActions}>
                 <Link href="/work" className={`${styles.primaryButton} ${styles.workButton}`}>
@@ -222,8 +254,8 @@ export default function Home() {
             <p className={styles.sectionEyebrow}>What I Bring</p>
             <h2>Technical depth that stays tied to practical outcomes.</h2>
             <p>
-              I do my best work where the data is messy, the context matters, and the final output
-              needs to be rigorous enough for analysts and useful enough for decision-makers.
+              I do my best work where data is messy, context matters, and outputs must be both
+              rigorous and usable.
             </p>
           </div>
 
@@ -262,6 +294,31 @@ export default function Home() {
       <RevealFx translateY={12} delay={0.3}>
         <section className={`${styles.section} ${styles.visitorMapSection}`}>
           <VisitorLocationMap />
+        </section>
+      </RevealFx>
+
+      <RevealFx translateY={12} delay={0.32}>
+        <section className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <div>
+              <p className={styles.sectionEyebrow}>Testimonials</p>
+              <h2>What collaborators say</h2>
+            </div>
+          </div>
+          <div className={styles.testimonialMarquee} aria-label="Rolling testimonials">
+            <div className={styles.testimonialTrack}>
+              {[...testimonials, ...testimonials].map((item, index) => (
+                <article key={`${item.name}-${index}`} className={styles.testimonialCard}>
+                  <p>{item.quote}</p>
+                  <strong>{item.name}</strong>
+                  <span>{item.role}</span>
+                  <a href={item.linkedIn} className={styles.testimonialLink} target="_blank" rel="noreferrer">
+                    Profile
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
         </section>
       </RevealFx>
 
