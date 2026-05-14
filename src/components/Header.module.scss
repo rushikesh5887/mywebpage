@@ -20,6 +20,16 @@
     min-width: 10rem;
 }
 
+.position :global(a[data-element="ToggleButton"]) {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.position :global(a[data-element="ToggleButton"] svg) {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
 @media (max-width: breakpoints.$s) {
     .position {
         top: auto;

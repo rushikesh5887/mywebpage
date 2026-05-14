@@ -530,6 +530,14 @@
     grid-template-columns: 1fr;
   }
 
+  .profilePanel {
+    order: 1;
+  }
+
+  .heroCopy {
+    order: 2;
+  }
+
   .impactGrid {
     grid-template-columns: 1fr;
   }

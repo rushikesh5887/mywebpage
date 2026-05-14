@@ -99,9 +99,9 @@ export const Header = () => {
             horizontal="center"
             zIndex={1}
           >
-            <Row gap="4" vertical="center" textVariant="body-default-s" suppressHydrationWarning>
+            <Row gap="8" vertical="center" textVariant="body-default-m" suppressHydrationWarning>
               {routes["/"] && (
-                <ToggleButton prefixIcon="home" href="/" selected={pathname === "/"} />
+                <ToggleButton prefixIcon="home" href="/" selected={pathname === "/"} size="l" />
               )}
               <Line background="neutral-alpha-medium" vert maxHeight="24" />
               {routes["/about"] && (
@@ -112,6 +112,7 @@ export const Header = () => {
                       href="/about"
                       label={about.label}
                       selected={pathname === "/about"}
+                      size="l"
                     />
                   </Row>
                   <Row hide s={{ hide: false }}>
@@ -119,6 +120,7 @@ export const Header = () => {
                       prefixIcon="person"
                       href="/about"
                       selected={pathname === "/about"}
+                      size="l"
                     />
                   </Row>
                 </>
@@ -131,6 +133,7 @@ export const Header = () => {
                       href="/work"
                       label={work.label}
                       selected={pathname.startsWith("/work")}
+                      size="l"
                     />
                   </Row>
                   <Row hide s={{ hide: false }}>
@@ -138,6 +141,7 @@ export const Header = () => {
                       prefixIcon="grid"
                       href="/work"
                       selected={pathname.startsWith("/work")}
+                      size="l"
                     />
                   </Row>
                 </>
@@ -150,6 +154,7 @@ export const Header = () => {
                       href="/publications"
                       label={publications.label}
                       selected={pathname.startsWith("/publications")}
+                      size="l"
                     />
                   </Row>
                   <Row hide s={{ hide: false }}>
@@ -157,6 +162,7 @@ export const Header = () => {
                       prefixIcon="document"
                       href="/publications"
                       selected={pathname.startsWith("/publications")}
+                      size="l"
                     />
                   </Row>
                 </>
@@ -176,6 +182,7 @@ export const Header = () => {
                       className={styles.moreTrigger}
                       aria-expanded={isMoreOpen}
                       aria-haspopup="menu"
+                      size="l"
                     />
                   }
                   dropdown={
