@@ -140,14 +140,19 @@ export default function Home() {
                     <span key={role}>{role}</span>
                   ))}
                 </div>
-                <p className={styles.roleFitMeta}>Open to roles in Germany and Europe (remote/hybrid/onsite).</p>
+                <p className={styles.roleFitMeta}>
+                  Open to roles in Germany and Europe (remote/hybrid/onsite).
+                </p>
               </div>
 
               <div className={styles.heroActions}>
                 <Link href="/work" className={`${styles.primaryButton} ${styles.workButton}`}>
                   View Selected Work
                 </Link>
-                <a href={`mailto:${person.email}`} className={`${styles.secondaryButton} ${styles.cvButton}`}>
+                <a
+                  href={`mailto:${person.email}`}
+                  className={`${styles.secondaryButton} ${styles.cvButton}`}
+                >
                   Contact Me
                 </a>
                 <a
@@ -312,7 +317,12 @@ export default function Home() {
                   <p>{item.quote}</p>
                   <strong>{item.name}</strong>
                   <span>{item.role}</span>
-                  <a href={item.linkedIn} className={styles.testimonialLink} target="_blank" rel="noreferrer">
+                  <a
+                    href={item.linkedIn}
+                    className={styles.testimonialLink}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Profile
                   </a>
                 </article>
@@ -332,7 +342,10 @@ export default function Home() {
               I can combine rigorous modeling, practical delivery, and real-world decision impact.
             </p>
             <div className={styles.heroActions}>
-              <a href={`mailto:${person.email}`} className={`${styles.primaryButton} ${styles.workButton}`}>
+              <a
+                href={`mailto:${person.email}`}
+                className={`${styles.primaryButton} ${styles.workButton}`}
+              >
                 Contact Me
               </a>
               <Link href="/about" className={`${styles.secondaryButton} ${styles.cvButton}`}>
