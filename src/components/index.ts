@@ -10,3 +10,4 @@ export { ThemeToggle } from "@/components/ThemeToggle";
 export { CustomMDX } from "@/components/mdx";
 export { ProjectBadgeStrip } from "@/components/ProjectBadgeStrip";
 export { FooterContact } from "@/components/FooterContact";
+export { DownloadLink } from "@/components/DownloadLink";

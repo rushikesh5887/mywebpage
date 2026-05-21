@@ -1,5 +1,6 @@
-import { Projects } from "@/components/work/Projects";
 import { teaching } from "@/app/teaching/content";
+import { DownloadLink } from "@/components";
+import { Projects } from "@/components/work/Projects";
 import { about, baseURL, person, work } from "@/resources";
 import { withBasePath } from "@/utils/paths";
 import { Button, Column, Flex, Heading, Meta, Row, Schema, Text } from "@once-ui-system/core";
@@ -43,6 +44,7 @@ export async function generateMetadata() {
 }
 
 export default function Work() {
+  const cvLink = withBasePath("/documents/cv.pdf");
   const recruiterQuickViewLink = withBasePath("/documents/recruiter-quick-view.txt");
 
   return (
@@ -77,17 +79,22 @@ export default function Work() {
           This page shows how I work in practice. Each project summarizes a real-world problem, the workflow I built to solve it, the tools I used, the scale of the data, the outcome of the work, and why it mattered. These are evidence of how I scope problems, build workflows, handle messy data, and deliver outputs that others can trust and use.
         </Text>
         <Row gap="12" wrap horizontal="center">
-          <Button
-            href={withBasePath("/documents/cv.pdf")}
-            download
-            variant="secondary"
-            prefixIcon="download"
+          <DownloadLink
+            href={cvLink}
+            fileName="cv.pdf"
+            asButton
+            button={{ variant: "secondary", prefixIcon: "download" }}
           >
             Download CV
-          </Button>
-          <Button href={recruiterQuickViewLink} download variant="secondary" prefixIcon="document">
+          </DownloadLink>
+          <DownloadLink
+            href={recruiterQuickViewLink}
+            fileName="recruiter-quick-view.txt"
+            asButton
+            button={{ variant: "secondary", prefixIcon: "document" }}
+          >
             Recruiter Quick View
-          </Button>
+          </DownloadLink>
           <Button href={teaching.path} variant="secondary" prefixIcon="book">
             Teaching & Mentoring
           </Button>
@@ -148,12 +155,22 @@ export default function Work() {
           <Button href={`mailto:${person.email}`} variant="primary" prefixIcon="email">
             Contact Me
           </Button>
-          <Button href={withBasePath("/documents/cv.pdf")} download variant="secondary" prefixIcon="download">
+          <DownloadLink
+            href={cvLink}
+            fileName="cv.pdf"
+            asButton
+            button={{ variant: "secondary", prefixIcon: "download" }}
+          >
             Download CV
-          </Button>
-          <Button href={recruiterQuickViewLink} download variant="secondary" prefixIcon="document">
+          </DownloadLink>
+          <DownloadLink
+            href={recruiterQuickViewLink}
+            fileName="recruiter-quick-view.txt"
+            asButton
+            button={{ variant: "secondary", prefixIcon: "document" }}
+          >
             Recruiter Quick View
-          </Button>
+          </DownloadLink>
           <Button href="/about" variant="secondary" prefixIcon="person">
             More About Me
           </Button>

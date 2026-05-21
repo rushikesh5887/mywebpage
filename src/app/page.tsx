@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Column, IconButton, Meta, RevealFx, Schema } from "@once-ui-system/core";
 
-import { FooterContact } from "@/components";
+import { DownloadLink, FooterContact } from "@/components";
 import { VisitorLocationMap } from "@/components/VisitorLocationMap";
 import { Projects } from "@/components/work/Projects";
 import { about, baseURL, home, person, social } from "@/resources";
@@ -155,20 +155,20 @@ export default function Home() {
                 >
                   Contact Me
                 </a>
-                <a
+                <DownloadLink
                   href={resumeLink}
+                  fileName="cv.pdf"
                   className={`${styles.secondaryButton} ${styles.cvButton}`}
-                  download
                 >
                   Download CV
-                </a>
-                <a
+                </DownloadLink>
+                <DownloadLink
                   href={recruiterQuickViewLink}
+                  fileName="recruiter-quick-view.txt"
                   className={`${styles.secondaryButton} ${styles.cvButton}`}
-                  download
                 >
                   Recruiter Quick View
-                </a>
+                </DownloadLink>
               </div>
 
               <div className={styles.impactPanel}>

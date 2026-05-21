@@ -2,6 +2,7 @@ import type { IconType } from "react-icons";
 
 import {
   HiArrowRight,
+  HiArrowDownTray,
   HiArrowTopRightOnSquare,
   HiArrowUpRight,
   HiCalendarDays,
@@ -46,6 +47,7 @@ import {
 export const iconLibrary: Record<string, IconType> = {
   arrowUpRight: HiArrowUpRight,
   arrowRight: HiArrowRight,
+  download: HiArrowDownTray,
   chevronLeft: HiChevronLeft,
   chevronRight: HiChevronRight,
   close: HiXMark,
