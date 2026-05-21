@@ -5,13 +5,17 @@ import {
   HiArrowTopRightOnSquare,
   HiArrowUpRight,
   HiCalendarDays,
+  HiChevronLeft,
+  HiChevronRight,
   HiEnvelope,
+  HiMagnifyingGlassPlus,
   HiOutlineDocument,
   HiOutlineEye,
   HiOutlineEyeSlash,
   HiOutlineGlobeAsiaAustralia,
   HiOutlineLink,
   HiOutlineRocketLaunch,
+  HiXMark,
 } from "react-icons/hi2";
 
 import {
@@ -42,6 +46,9 @@ import {
 export const iconLibrary: Record<string, IconType> = {
   arrowUpRight: HiArrowUpRight,
   arrowRight: HiArrowRight,
+  chevronLeft: HiChevronLeft,
+  chevronRight: HiChevronRight,
+  close: HiXMark,
   email: HiEnvelope,
   globe: HiOutlineGlobeAsiaAustralia,
   person: PiUserCircleDuotone,
@@ -54,6 +61,7 @@ export const iconLibrary: Record<string, IconType> = {
   discord: FaDiscord,
   eye: HiOutlineEye,
   eyeOff: HiOutlineEyeSlash,
+  zoomIn: HiMagnifyingGlassPlus,
   github: FaGithub,
   linkedin: FaLinkedin,
   x: FaX,

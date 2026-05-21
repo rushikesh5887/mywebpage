@@ -1,5 +1,8 @@
 "use client";
 
+import Image from "next/image";
+import { useState } from "react";
+
 import { ProjectBadgeStrip } from "@/components/ProjectBadgeStrip";
 import { withBasePath } from "@/utils/paths";
 import {
@@ -8,6 +11,7 @@ import {
   Column,
   Flex,
   Heading,
+  IconButton,
   SmartLink,
   Text,
 } from "@once-ui-system/core";
@@ -40,6 +44,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   scale,
   techStack,
 }) => {
+  const [zoomedImageIndex, setZoomedImageIndex] = useState<number | null>(null);
   const hasSummary = description?.trim().length > 0;
   const hasBadges = Boolean(domain || focus || scale || techStack?.length);
   const carouselItems = images.map((image) => ({
@@ -50,6 +55,21 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
     ...avatar,
     src: withBasePath(avatar.src),
   }));
+  const imageCount = carouselItems.length;
+  const zoomedImage = zoomedImageIndex !== null ? carouselItems[zoomedImageIndex] : null;
+  const canBrowseZoomedImages = imageCount > 1;
+
+  const showPreviousImage = () => {
+    setZoomedImageIndex((currentIndex) =>
+      currentIndex === null ? currentIndex : (currentIndex - 1 + imageCount) % imageCount,
+    );
+  };
+
+  const showNextImage = () => {
+    setZoomedImageIndex((currentIndex) =>
+      currentIndex === null ? currentIndex : (currentIndex + 1) % imageCount,
+    );
+  };
 
   return (
     <div className={styles.projectCard}>
@@ -75,7 +95,21 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
       </div>
 
       <div className={styles.figureColumn}>
-        <Carousel sizes="(max-width: 960px) 100vw, 960px" items={carouselItems} />
+        <div className={styles.figureFrame}>
+          <Carousel sizes="(max-width: 960px) 100vw, 960px" items={carouselItems} />
+          {imageCount > 0 && (
+            <IconButton
+              type="button"
+              icon="zoomIn"
+              variant="secondary"
+              size="m"
+              tooltip="Zoom image"
+              className={styles.zoomTrigger}
+              aria-label={`Zoom image for ${title}`}
+              onClick={() => setZoomedImageIndex(0)}
+            />
+          )}
+        </div>
       </div>
 
       {(avatarItems?.length > 0 || hasSummary || hasBadges || link) && (
@@ -116,6 +150,78 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             )}
           </Flex>
         </Column>
+      )}
+
+      {zoomedImage && (
+        <dialog
+          className={styles.zoomLightbox}
+          aria-label={`${title} image preview`}
+          onCancel={(event) => {
+            event.preventDefault();
+            setZoomedImageIndex(null);
+          }}
+          open
+        >
+          <button
+            type="button"
+            className={styles.zoomBackdrop}
+            aria-label="Close image preview"
+            onClick={() => setZoomedImageIndex(null)}
+          />
+          <div className={styles.zoomPanel}>
+            <IconButton
+              type="button"
+              icon="close"
+              variant="secondary"
+              size="m"
+              tooltip="Close"
+              className={`${styles.zoomControl} ${styles.zoomClose}`}
+              aria-label="Close image preview"
+              onClick={() => setZoomedImageIndex(null)}
+            />
+            {canBrowseZoomedImages && (
+              <IconButton
+                type="button"
+                icon="chevronLeft"
+                variant="secondary"
+                size="m"
+                tooltip="Previous image"
+                className={`${styles.zoomControl} ${styles.zoomPrevious}`}
+                aria-label="Previous project image"
+                onClick={showPreviousImage}
+              />
+            )}
+            <div className={styles.zoomImageWrap}>
+              <Image
+                src={zoomedImage.slide}
+                alt={zoomedImage.alt}
+                fill
+                sizes="100vw"
+                className={styles.zoomImage}
+              />
+            </div>
+            {canBrowseZoomedImages && (
+              <IconButton
+                type="button"
+                icon="chevronRight"
+                variant="secondary"
+                size="m"
+                tooltip="Next image"
+                className={`${styles.zoomControl} ${styles.zoomNext}`}
+                aria-label="Next project image"
+                onClick={showNextImage}
+              />
+            )}
+            <div className={styles.zoomCaption}>
+              <strong>{title}</strong>
+              {canBrowseZoomedImages && (
+                <span>
+                  {(zoomedImageIndex ?? 0) + 1} / {imageCount}
+                </span>
+              )}
+            </div>
+          </div>
+        </dialog>
       )}
     </div>
   );
