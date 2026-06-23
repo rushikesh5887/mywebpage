@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentProps, MouseEvent, ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 
 import { Button } from "@once-ui-system/core";
 
@@ -26,42 +26,18 @@ export function DownloadLink({
   asButton = false,
   button,
 }: DownloadLinkProps) {
-  const handleDownload = async (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-
-    try {
-      const response = await fetch(href);
-
-      if (!response.ok) {
-        window.location.href = href;
-        return;
-      }
-
-      const blob = await response.blob();
-      const objectUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-
-      link.href = objectUrl;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      window.URL.revokeObjectURL(objectUrl);
-    } catch {
-      window.location.href = href;
-    }
-  };
+  const buttonClassName = [button?.className, className].filter(Boolean).join(" ") || undefined;
 
   if (asButton) {
     return (
-      <Button href={href} download={fileName} onClick={handleDownload} {...button}>
+      <Button href={href} download={fileName} {...button} className={buttonClassName}>
         {children}
       </Button>
     );
   }
 
   return (
-    <a href={href} download={fileName} className={className} onClick={handleDownload}>
+    <a href={href} download={fileName} className={className}>
       {children}
     </a>
   );
