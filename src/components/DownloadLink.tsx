@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, MouseEvent, ReactNode } from "react";
 
 import { Button } from "@once-ui-system/core";
 
@@ -28,16 +28,28 @@ export function DownloadLink({
 }: DownloadLinkProps) {
   const buttonClassName = [button?.className, className].filter(Boolean).join(" ") || undefined;
 
+  const handleDownload = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+
+    const link = document.createElement("a");
+
+    link.href = new URL(href, window.location.href).href;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
+
   if (asButton) {
     return (
-      <Button href={href} download={fileName} {...button} className={buttonClassName}>
+      <Button type="button" onClick={handleDownload} {...button} className={buttonClassName}>
         {children}
       </Button>
     );
   }
 
   return (
-    <a href={href} download={fileName} className={className}>
+    <a href={href} download={fileName} className={className} onClick={handleDownload}>
       {children}
     </a>
   );
