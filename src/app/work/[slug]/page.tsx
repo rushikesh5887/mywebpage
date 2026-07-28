@@ -3,6 +3,7 @@ import { Projects } from "@/components/work/Projects";
 import { about, baseURL, person, work } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
 import { withBasePath } from "@/utils/paths";
+import { generateSeoMetadata } from "@/utils/seo";
 import { getPosts } from "@/utils/utils";
 import {
   Avatar,
@@ -13,7 +14,6 @@ import {
   Heading,
   Line,
   Media,
-  Meta,
   Row,
   Schema,
   SmartLink,
@@ -52,12 +52,18 @@ export async function generateMetadata({
     post.metadata.images[0] ||
     "/images/og/rushikesh-home.jpg";
 
-  return Meta.generate({
+  return generateSeoMetadata({
     title: post.metadata.title,
     description: post.metadata.summary,
     baseURL: baseURL,
     image: previewImage,
     path: `${work.path}/${post.slug}`,
+    keywords: [
+      post.metadata.domain,
+      post.metadata.focus,
+      post.metadata.scale,
+      ...(post.metadata.techStack || []),
+    ].filter((keyword): keyword is string => Boolean(keyword)),
   });
 }
 

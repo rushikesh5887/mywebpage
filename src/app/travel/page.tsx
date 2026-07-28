@@ -1,16 +1,18 @@
-import { Column, Meta, Schema } from "@once-ui-system/core";
+import { Column, Schema } from "@once-ui-system/core";
 
 import { travelGallery, travelPlaces } from "@/app/travel/data";
 import TravelView from "@/components/travel/TravelView";
 import { about, baseURL, person, travel } from "@/resources";
+import { generateSeoMetadata } from "@/utils/seo";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generateSeoMetadata({
     title: travel.title,
     description: travel.description,
     baseURL: baseURL,
     image: "/images/og/rushikesh-home.jpg",
     path: travel.path,
+    keywords: ["Rushikesh Amrutsamanvar travel", "travel gallery", "visited places map"],
   });
 }
 

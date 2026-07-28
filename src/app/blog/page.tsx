@@ -1,7 +1,8 @@
 import { Mailchimp } from "@/components";
 import { Posts } from "@/components/blog/Posts";
 import { baseURL, blog, person, routes } from "@/resources";
-import { Column, Heading, Meta, Schema } from "@once-ui-system/core";
+import { generateSeoMetadata } from "@/utils/seo";
+import { Column, Heading, Schema } from "@once-ui-system/core";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata() {
@@ -9,12 +10,13 @@ export async function generateMetadata() {
     return {};
   }
 
-  return Meta.generate({
+  return generateSeoMetadata({
     title: blog.title,
     description: blog.description,
     baseURL: baseURL,
     image: "/images/og/rushikesh-home.jpg",
     path: blog.path,
+    keywords: ["Rushikesh Amrutsamanvar blog", "mobility analytics writing"],
   });
 }
 

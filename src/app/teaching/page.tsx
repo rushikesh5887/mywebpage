@@ -1,16 +1,23 @@
-import { Column, Heading, Meta, Row, Schema, SmartLink, Tag, Text } from "@once-ui-system/core";
+import { Column, Heading, Row, Schema, SmartLink, Tag, Text } from "@once-ui-system/core";
 
 import { about, baseURL, person } from "@/resources";
+import { generateSeoMetadata } from "@/utils/seo";
 
 import { teaching } from "./content";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generateSeoMetadata({
     title: teaching.title,
     description: teaching.description,
     baseURL: baseURL,
     image: "/images/og/rushikesh-home.jpg",
     path: teaching.path,
+    keywords: [
+      "Rushikesh Amrutsamanvar teaching",
+      "statistics lecturer",
+      "machine learning teaching",
+      "SQL teaching",
+    ],
   });
 }
 

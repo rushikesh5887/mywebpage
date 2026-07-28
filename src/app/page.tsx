@@ -1,23 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Column, IconButton, Meta, RevealFx, Schema } from "@once-ui-system/core";
+import { Column, IconButton, RevealFx, Schema } from "@once-ui-system/core";
 
 import { DownloadLink, FooterContact } from "@/components";
 import { VisitorLocationMap } from "@/components/VisitorLocationMap";
 import { Projects } from "@/components/work/Projects";
 import { about, baseURL, home, person, social } from "@/resources";
 import { withBasePath } from "@/utils/paths";
+import { generateSeoMetadata } from "@/utils/seo";
 
 import styles from "./page.module.css";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generateSeoMetadata({
     title: home.title,
     description: home.description,
     baseURL: baseURL,
     path: home.path,
     image: home.image,
+    keywords: [
+      "Rushikesh Amrutsamanvar portfolio",
+      "mobility analytics portfolio",
+      "geospatial analytics portfolio",
+      "urban systems data scientist",
+    ],
   });
 }
 

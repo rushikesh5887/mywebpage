@@ -1,14 +1,16 @@
 import GalleryView from "@/components/gallery/GalleryView";
 import { baseURL, gallery, person } from "@/resources";
-import { Flex, Meta, Schema } from "@once-ui-system/core";
+import { generateSeoMetadata } from "@/utils/seo";
+import { Flex, Schema } from "@once-ui-system/core";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generateSeoMetadata({
     title: gallery.title,
     description: gallery.description,
     baseURL: baseURL,
     image: "/images/og/rushikesh-home.jpg",
     path: gallery.path,
+    keywords: ["Rushikesh Amrutsamanvar gallery", "portfolio gallery"],
   });
 }
 

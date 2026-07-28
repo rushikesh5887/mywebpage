@@ -5,7 +5,7 @@ const person: Person = {
   firstName: "Rushikesh",
   lastName: "Amrutsamanvar",
   name: "Dr. Rushikesh Amrutsamanvar",
-  role: "Applied Data Scientist Mobility, Geospatial Analytics, and Urban Systems",
+  role: "Applied Data Scientist in Mobility, Geospatial Analytics, and Urban Systems",
   avatar: "/images/RBD_1.jpg",
   email: "rushikesh.amrut@gmail.com",
   location: "Europe/Berlin",
@@ -53,7 +53,7 @@ const home: Home = {
   image: "/images/og/rushikesh-home.jpg",
   label: "Home",
   title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
+  description: `Portfolio of ${person.name}, an applied data scientist working across mobility analytics, geospatial data science, transportation research, and urban systems.`,
   headline: <>I turn complex mobility data into models, tools, and decisions.</>,
   featured: {
     display: false,
@@ -73,7 +73,7 @@ const about: About = {
   path: "/about",
   label: "About",
   title: `About – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} based in Germany`,
+  description: `Meet ${person.name}, ${person.role} based in Germany.`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -474,7 +474,7 @@ const work: Work = {
   path: "/work",
   label: "Work",
   title: `Projects – ${person.name}`,
-  description: `Selected research and analytics projects by ${person.name}`,
+  description: `Selected research and analytics projects by ${person.name}, including traffic trajectory extraction, mixed-traffic behavior modeling, geospatial analytics, and carbon-emissions benchmarking.`,
 };
 
 const gallery: Gallery = {

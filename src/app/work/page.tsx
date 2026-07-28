@@ -3,7 +3,8 @@ import { DownloadLink } from "@/components";
 import { Projects } from "@/components/work/Projects";
 import { about, baseURL, person, work } from "@/resources";
 import { withBasePath } from "@/utils/paths";
-import { Button, Column, Flex, Heading, Meta, Row, Schema, Text } from "@once-ui-system/core";
+import { generateSeoMetadata } from "@/utils/seo";
+import { Button, Column, Flex, Heading, Row, Schema, Text } from "@once-ui-system/core";
 import styles from "./page.module.css";
 
 const workSignals = [
@@ -34,12 +35,18 @@ const workSignals = [
 ];
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generateSeoMetadata({
     title: work.title,
     description: work.description,
     baseURL: baseURL,
     image: "/images/og/rushikesh-home.jpg",
     path: work.path,
+    keywords: [
+      "Rushikesh Amrutsamanvar projects",
+      "traffic trajectory extraction",
+      "mobility machine learning",
+      "geospatial data pipelines",
+    ],
   });
 }
 

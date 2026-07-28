@@ -5,6 +5,7 @@ import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
 import { about, baseURL, person, social } from "@/resources";
 import { withBasePath } from "@/utils/paths";
+import { generateSeoMetadata } from "@/utils/seo";
 import {
   Avatar,
   Button,
@@ -13,7 +14,6 @@ import {
   Icon,
   IconButton,
   Media,
-  Meta,
   Row,
   Schema,
   Tag,
@@ -22,12 +22,18 @@ import {
 import React from "react";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generateSeoMetadata({
     title: about.title,
     description: about.description,
     baseURL: baseURL,
     image: "/images/og/rushikesh-home.jpg",
     path: about.path,
+    keywords: [
+      "Rushikesh Amrutsamanvar CV",
+      "IIT Madras transportation systems",
+      "TU Dresden transport modeling",
+      "International School of Management Hamburg",
+    ],
   });
 }
 

@@ -1,9 +1,9 @@
 import { about, baseURL, person } from "@/resources";
+import { generateSeoMetadata } from "@/utils/seo";
 import {
   Column,
   Heading,
   Line,
-  Meta,
   Row,
   Schema,
   SmartLink,
@@ -13,12 +13,18 @@ import {
 import { publications } from "./content";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generateSeoMetadata({
     title: publications.title,
     description: publications.description,
     baseURL: baseURL,
     image: "/images/og/rushikesh-home.jpg",
     path: publications.path,
+    keywords: [
+      "Rushikesh Amrutsamanvar publications",
+      "Transportation Letters Rushikesh Amrutsamanvar",
+      "road traffic carbon emissions global cities",
+      "powered two wheelers mixed traffic",
+    ],
   });
 }
 

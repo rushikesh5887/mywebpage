@@ -5,26 +5,103 @@ import "@/resources/custom.css";
 import classNames from "classnames";
 
 import { Footer, Header, Providers, RouteGuard } from "@/components";
-import { baseURL, dataStyle, effects, fonts, home, style } from "@/resources";
+import { baseURL, dataStyle, effects, fonts, home, person, social, style } from "@/resources";
+import {
+  authorProfileLinks,
+  canonicalUrl,
+  generateSeoMetadata,
+  resourceUrl,
+} from "@/utils/seo";
 import {
   Background,
   Column,
   Flex,
-  Meta,
   RevealFx,
   type SpacingToken,
   type opacity,
 } from "@once-ui-system/core";
 
 export async function generateMetadata() {
-  return Meta.generate({
+  return generateSeoMetadata({
     title: home.title,
     description: home.description,
     baseURL: baseURL,
     path: home.path,
     image: home.image,
+    keywords: [
+      "data scientist Germany",
+      "mobility data scientist",
+      "geospatial data scientist",
+      "urban analytics portfolio",
+    ],
   });
 }
+
+const sameAsLinks = [
+  ...social.map((item) => item.link),
+  authorProfileLinks.orcid,
+].filter(Boolean);
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${canonicalUrl(baseURL)}#person`,
+  name: person.name,
+  givenName: person.firstName,
+  familyName: person.lastName,
+  alternateName: ["Rushikesh Amrutsamanvar", "Rushikesh B. Amrutsamanvar", "R. B. Amrutsamanvar"],
+  url: canonicalUrl(baseURL),
+  image: resourceUrl(baseURL, person.avatar),
+  email: `mailto:${person.email}`,
+  jobTitle: person.role,
+  sameAs: sameAsLinks,
+  alumniOf: [
+    {
+      "@type": "CollegeOrUniversity",
+      name: "Indian Institute of Technology Madras",
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      name: "National Institute of Technology Surat",
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      name: "Shivaji University",
+    },
+  ],
+  affiliation: [
+    {
+      "@type": "EducationalOrganization",
+      name: "International School of Management, Germany",
+    },
+    {
+      "@type": "CollegeOrUniversity",
+      name: "Technische Universitat Dresden",
+    },
+  ],
+  knowsAbout: [
+    "Applied data science",
+    "Geospatial analytics",
+    "Mobility analytics",
+    "Urban systems",
+    "Transportation systems modeling",
+    "Traffic trajectory extraction",
+    "Mixed traffic behavior modeling",
+    "Road traffic carbon emissions",
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${canonicalUrl(baseURL)}#website`,
+  name: home.title,
+  description: home.description,
+  url: canonicalUrl(baseURL),
+  publisher: {
+    "@id": `${canonicalUrl(baseURL)}#person`,
+  },
+};
 
 export default async function RootLayout({
   children,
@@ -48,6 +125,20 @@ export default async function RootLayout({
         <meta
           name="google-site-verification"
           content="lAJWZOAMLRlM6aMJhhr_b11iXIuBaef9IdrSeL1eZVE"
+        />
+        <script
+          id="person-json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd),
+          }}
+        />
+        <script
+          id="website-json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
         />
         <script
           id="theme-init"
